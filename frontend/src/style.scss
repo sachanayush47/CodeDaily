@@ -311,5 +311,74 @@ $LightGreen: #b9e7e7;
                 }
             }
         }
+
+        // WRITE
+        .add {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .content {
+                flex: 5;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                input {
+                    padding: 10px;
+                    border: 1px solid lightgray;
+                }
+            }
+
+            .menu {
+                flex: 2;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .item {
+                    border: 1px solid lightgray;
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 14px;
+                    color: #555;
+
+                    h1 {
+                        font-size: 20px;
+                    }
+
+                    .buttons {
+                        :nth-child(2n) {
+                            cursor: pointer;
+                            color: teal;
+                            font-weight: bold;
+                            background-color: white;
+                            border-radius: 2px;
+                            padding: 3px 5px;
+                            border: 1px solid teal;
+                        }
+
+                        :nth-child(2n + 1) {
+                            cursor: pointer;
+                            color: white;
+                            font-weight: bold;
+                            background-color: teal;
+                            border-radius: 2px;
+                            padding: 3px 5px;
+                            border: 1px solid teal;
+                        }
+                    }
+
+                    .cat {
+                        display: flex;
+                        align-items: center;
+                        gap: 2px;
+                        color: teal;
+                    }
+                }
+            }
+        }
     }
 }
