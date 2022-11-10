@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Edit from "../img/edit.png";
 import Delete from "../img/delete.png";
 import { Link } from "react-router-dom";
 import Menu from "../components/Menu";
 
 function Single() {
+    useEffect(() => {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    });
+
     return (
         <div className="single">
             <div className="content">

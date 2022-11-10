@@ -1,7 +1,13 @@
 import React from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+    const onLogout = async () => {
+        const res = await axios.post("/auth/logout");
+        console.log(res);
+    };
+
     return (
         <div className="navbar">
             <div className="container">
@@ -31,7 +37,7 @@ function Navbar() {
                     </Link>
 
                     <span>Ayush</span>
-                    <span>Logout</span>
+                    <span onClick={onLogout}>Logout</span>
                     <span className="write">
                         <Link className="link" to="/write">
                             Write
