@@ -1,12 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContextProvider";
 
 function Navbar() {
-    const onLogout = async () => {
-        const res = await axios.post("/auth/logout");
-        console.log(res);
-    };
+    const { currentUser, logout } = useContext(AuthContext);
 
     return (
         <div className="navbar">
@@ -36,8 +35,25 @@ function Navbar() {
                         <h6>Others</h6>
                     </Link>
 
-                    <span>Ayush</span>
-                    <span onClick={onLogout}>Logout</span>
+                    <span>
+                        {currentUser ? (
+                            currentUser.username
+                        ) : (
+                            <Link className="link" to="/login">
+                                Login
+                            </Link>
+                        )}
+                    </span>
+
+                    {currentUser ? (
+                        <span onClick={logout}>Logout</span>
+                    ) : (
+                        <span>
+                            <Link className="link" to="/register">
+                                Register
+                            </Link>
+                        </span>
+                    )}
                     <span className="write">
                         <Link className="link" to="/write">
                             Write

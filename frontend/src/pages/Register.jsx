@@ -46,7 +46,7 @@ function Register() {
         e.preventDefault();
 
         try {
-            const res = await axios.post("/auth/register", inputs);
+            await axios.post("/auth/register", inputs);
             notifySuccess("User has been created.");
             navigate("/login");
         } catch (error) {

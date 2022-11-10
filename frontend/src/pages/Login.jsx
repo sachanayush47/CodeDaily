@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContextProvider";
 
 function Login() {
-    const [inputs, setInputs] = useState({
-        username: "",
-        password: "",
-    });
-
     const notifySuccess = (message) =>
         toast.success(message, {
             position: "top-right",
@@ -35,18 +31,24 @@ function Login() {
             theme: "colored",
         });
 
+    const [inputs, setInputs] = useState({
+        username: "",
+        password: "",
+    });
+
+    const { login } = useContext(AuthContext);
+
     const navigate = useNavigate();
 
     const onChange = (e) => {
         setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-        console.log(inputs);
     };
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const res = await axios.post("/auth/login", inputs);
+            await login(inputs);
             notifySuccess("Logged in successfully.");
             navigate("/");
         } catch (error) {
