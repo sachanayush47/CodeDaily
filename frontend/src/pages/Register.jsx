@@ -6,12 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
-    const [inputs, setInputs] = useState({
-        username: "",
-        email: "",
-        password: "",
-    });
-
+    // Message dialog: Success
     const notifySuccess = (message) =>
         toast.success(message, {
             position: "top-right",
@@ -24,6 +19,7 @@ function Register() {
             theme: "colored",
         });
 
+    // Message dialog: Error
     const notifyError = (message) =>
         toast.error(message, {
             position: "top-right",
@@ -35,6 +31,12 @@ function Register() {
             progress: undefined,
             theme: "colored",
         });
+
+    const [inputs, setInputs] = useState({
+        username: "",
+        email: "",
+        password: "",
+    });
 
     const navigate = useNavigate();
 
@@ -81,7 +83,7 @@ function Register() {
                 />
                 <button onClick={onSubmit}>Register</button>
                 <span>
-                    Do you have an account? <Link to="/login">Login</Link>
+                    do you have an account? <Link to="/login">Login</Link>
                 </span>
             </form>
         </div>

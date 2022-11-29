@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 
 import { db } from "../db.js";
 
+// Register user
 export const register = (req, res) => {
     const { email, username, password } = req.body;
 
@@ -31,6 +32,7 @@ export const register = (req, res) => {
     });
 };
 
+// Login user
 export const login = (req, res) => {
     const { username, password } = req.body;
 
@@ -62,6 +64,7 @@ export const login = (req, res) => {
     });
 };
 
+// Logout user
 export const logout = (req, res) => {
     res.clearCookie("access_token", { sameSite: "none", secure: true })
         .status(200)

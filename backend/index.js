@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import multer from "multer";
 
+// Routes
 import postRoutes from "./routes/postRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Multer storage, stores user uploaded images
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "../frontend/public/uploads");
@@ -28,7 +30,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Upload image
+// Upload image endpoint
 app.post("/api/upload", upload.single("image"), (req, res) => {
     const file = req.file;
     res.status(200).json(file.filename);

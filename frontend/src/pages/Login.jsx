@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContextProvider";
 
 function Login() {
+    // Message dialog: Success
     const notifySuccess = (message) =>
         toast.success(message, {
             position: "top-right",
@@ -19,6 +20,7 @@ function Login() {
             theme: "colored",
         });
 
+    // Message dialog: Error
     const notifyError = (message) =>
         toast.error(message, {
             position: "top-right",
@@ -77,7 +79,7 @@ function Login() {
                 />
                 <button onClick={onSubmit}>Login</button>
                 <span>
-                    Don't have an account? <Link to="/register">Register</Link>
+                    don't have an account? <Link to="/register">Register</Link>
                 </span>
             </form>
         </div>

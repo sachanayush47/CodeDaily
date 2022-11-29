@@ -11,6 +11,7 @@ const parseHtml = (html) => {
 };
 
 function Home() {
+    // Message dialog: Error
     const notifyError = (message) =>
         toast.error(message, {
             position: "top-right",
@@ -33,7 +34,6 @@ function Home() {
                 const res = await axios.get(`/posts${category}`);
                 setPosts(res.data);
             } catch (error) {
-                console.log(error);
                 notifyError(
                     "Something went wrong. Unable to fetch posts, please try again."
                 );

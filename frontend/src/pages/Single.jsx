@@ -10,16 +10,12 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContextProvider";
 import DOMPurify from "dompurify";
 
-const parseHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent;
-};
-
 function Single() {
     useEffect(() => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
 
+    // Message dialog: Error
     const notifyError = (message) =>
         toast.error(message, {
             position: "top-right",

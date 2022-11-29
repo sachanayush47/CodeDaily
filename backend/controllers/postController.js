@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { db } from "../db.js";
 
+// Get all posts
 export const getPosts = (req, res) => {
     const category = req.query.cat;
     const q = category
@@ -22,6 +23,7 @@ export const getPosts = (req, res) => {
     });
 };
 
+// Get a post
 export const getPost = (req, res) => {
     const q =
         "SELECT posts.id, `username`, `title`, `desc`, posts.img, users.img AS userImg, `category`, `date` FROM users JOIN posts on users.id = posts.uid WHERE posts.id = ?";
@@ -31,6 +33,7 @@ export const getPost = (req, res) => {
     });
 };
 
+// Add a new post to DB
 export const addPost = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated");
@@ -62,6 +65,7 @@ export const addPost = (req, res) => {
     });
 };
 
+// Delete a post from the DB
 export const deletePost = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated");
@@ -78,6 +82,7 @@ export const deletePost = (req, res) => {
     });
 };
 
+// Update a post from the DB
 export const updatePost = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not authenticated");
