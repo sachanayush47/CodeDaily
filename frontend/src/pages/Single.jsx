@@ -9,6 +9,11 @@ import moment from "moment";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContextProvider";
 
+const parseHtml = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+};
+
 function Single() {
     useEffect(() => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -64,7 +69,7 @@ function Single() {
     return (
         <div className="single">
             <div className="content">
-                <img src={post.img} alt="" />
+                <img src={`../uploads/${post.img}`} alt="" />
                 <div className="user">
                     {post.userImg && <img src={post.userImg} alt="" />}
                     <div className="info">
@@ -74,7 +79,7 @@ function Single() {
 
                     {currentUser?.username === post.username && (
                         <div className="edit">
-                            <Link to={`/write?edit=${postId}`}>
+                            <Link to={`/write?edit=${postId}`} state={post}>
                                 <img src={Edit} alt="" />
                             </Link>
                             <img onClick={handleDelete} src={Delete} alt="" />
@@ -82,9 +87,9 @@ function Single() {
                     )}
                 </div>
                 <h1>{post.title}</h1>
-                {post.desc}
+                {parseHtml(post.desc)}
             </div>
-            <Menu category={post.category} />
+            {post.category && <Menu category={post.category} />}
         </div>
     );
 }

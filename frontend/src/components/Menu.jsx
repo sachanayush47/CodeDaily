@@ -34,7 +34,7 @@ const Menu = ({ category }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await axios.get(`/posts${category}`);
+                const res = await axios.get(`/posts?cat=${category}`);
                 setPosts(res.data);
             } catch (error) {
                 console.log(error);
@@ -49,7 +49,7 @@ const Menu = ({ category }) => {
             <h1>Otherposts you may like</h1>
             {posts.map((post) => (
                 <div className="post" key={post.id}>
-                    <img src={post.img} alt="" />
+                    <img src={`../uploads/${post.img}`} alt="" />
                     <h2>{post.title}</h2>
                     <button>read more...</button>
                 </div>

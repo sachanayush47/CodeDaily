@@ -7,6 +7,7 @@
 # Custom
 node_modules
 Info.txt
+uploads
 
 # testing
 /coverage
