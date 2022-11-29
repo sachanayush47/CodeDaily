@@ -4,8 +4,27 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
+import { toast, ToastContainer } from "react-toastify";
+
+const textBoxPlaceholder =
+    "Start writing here.." +
+    "\n 1. Description should have at least 200 characters" +
+    "\n 2. Title should have at least 10 characters" +
+    "\n 3. Posts are automatically categorized as 'other' by default";
 
 function Write() {
+    const notifyError = (message) =>
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+
     const state = useLocation().state;
 
     const [value, setValue] = useState(state?.desc || "");
@@ -15,7 +34,6 @@ function Write() {
 
     const upload = async () => {
         try {
-            console.log("hiiiiiiiii");
             const formData = new FormData();
             formData.append("image", image);
             const res = await axios.post("/upload", formData);
@@ -46,12 +64,13 @@ function Write() {
                       date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
                   });
         } catch (error) {
-            console.log(error);
+            notifyError(error.response.data);
         }
     };
 
     return (
         <div className="add">
+            <ToastContainer />
             <div className="content">
                 <input
                     value={title}
@@ -65,7 +84,7 @@ function Write() {
                         theme="snow"
                         value={value}
                         onChange={setValue}
-                        placeholder="Start writing here..."
+                        placeholder={textBoxPlaceholder}
                     />
                 </div>
             </div>

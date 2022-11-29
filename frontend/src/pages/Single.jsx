@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import moment from "moment";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContextProvider";
+import DOMPurify from "dompurify";
 
 const parseHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -87,7 +88,11 @@ function Single() {
                     )}
                 </div>
                 <h1>{post.title}</h1>
-                {parseHtml(post.desc)}
+                <p
+                    dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(post.desc),
+                    }}
+                ></p>
             </div>
             {post.category && <Menu category={post.category} />}
         </div>

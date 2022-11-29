@@ -156,11 +156,11 @@ $LightGreen: #b9e7e7;
 
                     &:nth-child(2n + 1) {
                         flex-direction: row-reverse;
-                        align-items: flex-end;
                     }
 
                     .img {
                         flex: 2;
+                        position: relative;
 
                         img {
                             width: 100%;
@@ -314,6 +314,11 @@ $LightGreen: #b9e7e7;
         }
 
         // WRITE
+
+        .ql-editor {
+            height: 200px;
+        }
+
         .add {
             margin-top: 20px;
             display: flex;

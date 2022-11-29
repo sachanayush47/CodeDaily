@@ -4,11 +4,20 @@ import { db } from "../db.js";
 export const getPosts = (req, res) => {
     const category = req.query.cat;
     const q = category
-        ? "SELECT * FROM posts WHERE category = ?"
-        : "SELECT * FROM posts";
+        ? "SELECT * FROM posts WHERE category = ? ORDER BY date DESC"
+        : "SELECT * FROM posts ORDER BY date DESC";
 
     db.query(q, [category], (err, data) => {
         if (err) return res.json(err);
+
+        // Limiting character count
+        data.forEach((item) => {
+            item.desc = item.desc.substring(0, 100);
+            console.log(item.desc);
+        });
+
+        console.log(data);
+
         return res.status(200).json(data);
     });
 };
@@ -40,6 +49,11 @@ export const addPost = (req, res) => {
             req.body.date,
             userInfo.id,
         ];
+
+        if (req.body.desc.length < 100)
+            return res
+                .status(400)
+                .json("Character count of description is less then 100");
 
         db.query(q, [values], (err, data) => {
             if (err) res.status(500).json(err);
