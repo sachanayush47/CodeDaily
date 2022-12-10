@@ -13,11 +13,8 @@ export const getPosts = (req, res) => {
 
         // Limiting character count
         data.forEach((item) => {
-            item.desc = item.desc.substring(0, 100);
-            console.log(item.desc);
+            item.desc = item.desc.substring(0, 200);
         });
-
-        console.log(data);
 
         return res.status(200).json(data);
     });
@@ -53,10 +50,10 @@ export const addPost = (req, res) => {
             userInfo.id,
         ];
 
-        if (req.body.desc.length < 100)
+        if (req.body.desc.length < 200)
             return res
                 .status(400)
-                .json("Character count of description is less then 100");
+                .json("Character count of description is less then 200");
 
         db.query(q, [values], (err, data) => {
             if (err) res.status(500).json(err);
