@@ -3,9 +3,18 @@ $LightGreen: #b9e7e7;
 .app {
     display: flex;
     justify-content: center;
+    padding: 0 20px;
+
+    @media screen and (max-width: 1024px) {
+        padding: 0 100px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 0 25px;
+    }
 
     .container {
-        width: 1024px;
+        max-width: 1024px;
 
         .link {
             text-decoration: none;
@@ -150,6 +159,10 @@ $LightGreen: #b9e7e7;
                 flex-direction: column;
                 gap: 150px;
 
+                @media screen and (max-width: 1024px) {
+                    gap: 60px;
+                }
+
                 .post {
                     display: flex;
                     gap: 100px;
@@ -166,9 +179,35 @@ $LightGreen: #b9e7e7;
                             width: 100%;
                             max-height: 400px;
                             object-fit: cover;
-                            border: 1px solid teal;
-                            box-shadow: 9px 8px 1px $LightGreen;
+                            border: 1px solid #007070;
+                            box-shadow: 4px 4px 4px teal;
                             border-radius: 5px;
+                        }
+                    }
+                }
+
+                @media screen and (max-width: 1024px) {
+                    .post {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 25px;
+
+                        &:nth-child(2n + 1) {
+                            flex-direction: column;
+                        }
+
+                        .img {
+                            flex: 2;
+                            position: relative;
+
+                            img {
+                                width: 100%;
+                                max-height: 400px;
+                                object-fit: cover;
+                                border: 1px solid teal;
+                                box-shadow: 9px 8px 1px $LightGreen;
+                                border-radius: 5px;
+                            }
                         }
                     }
                 }
@@ -181,7 +220,7 @@ $LightGreen: #b9e7e7;
                 }
 
                 h1 {
-                    font-size: 48px;
+                    font-size: 2.5rem;
                 }
 
                 p {
@@ -190,6 +229,7 @@ $LightGreen: #b9e7e7;
 
                 button {
                     width: max-content;
+                    margin-top: 10px;
                     padding: 10px 20px;
                     border: none;
                     cursor: pointer;
