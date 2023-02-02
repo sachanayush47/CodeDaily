@@ -56,9 +56,12 @@ function Home() {
                             <Link className="link" to={`/post/${post.id}`}>
                                 <h1>{post.title}</h1>
                             </Link>
-                            <p>{parseHtml(post.desc)}</p>
+                            <p>
+                                {parseHtml(post.desc)}
+                                <span>...</span>
+                            </p>
                             <Link className="link" to={`/post/${post.id}`}>
-                                <button>read more...</button>
+                                <button>read more</button>
                             </Link>
                         </div>
                     </div>

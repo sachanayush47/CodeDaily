@@ -16,7 +16,7 @@ function Navbar() {
                     </Link>
                 </div>
                 <div className="links">
-                    <Link className="link" to="/?cat=dsa">
+                    {/* <Link className="link" to="/?cat=dsa">
                         <h6>DSA</h6>
                     </Link>
                     <Link className="link" to="/?cat=webdev">
@@ -33,7 +33,7 @@ function Navbar() {
                     </Link>
                     <Link className="link" to="/?cat=others">
                         <h6>Others</h6>
-                    </Link>
+                    </Link> */}
 
                     <span>
                         {currentUser ? (

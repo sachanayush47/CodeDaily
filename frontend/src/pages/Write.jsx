@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useLocation } from "react-router-dom";
+import { Navigate, redirect, useLocation } from "react-router-dom";
 import moment from "moment";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -49,7 +49,7 @@ function Write() {
         const imgUrl = image && (await upload());
 
         try {
-            state
+            const res = state
                 ? await axios.put(`/posts/${state.id}`, {
                       title: title,
                       desc: value,

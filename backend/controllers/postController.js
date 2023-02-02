@@ -57,7 +57,13 @@ export const addPost = (req, res) => {
 
         db.query(q, [values], (err, data) => {
             if (err) res.status(500).json(err);
-            return res.status(201).json("Published successfully");
+            console.log(data);
+            return res
+                .status(201)
+                .json({
+                    message: "Published successfully",
+                    insertId: data.insertId,
+                });
         });
     });
 };

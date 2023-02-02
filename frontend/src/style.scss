@@ -10,10 +10,11 @@ $LightGreen: #b9e7e7;
     }
 
     @media screen and (max-width: 768px) {
-        padding: 0 25px;
+        padding: 0 14px;
     }
 
     .container {
+        width: 100%;
         max-width: 1024px;
 
         .link {
@@ -23,12 +24,17 @@ $LightGreen: #b9e7e7;
 
         // LOGIN AND REGISTRATION
         .auth {
+            width: 100%;
+            // max-width: 1024px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: $LightGreen;
+            // background-color: $LightGreen;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url("https://images.unsplash.com/photo-1611083616600-d3fdc4198aa6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80");
 
             h1 {
                 font-size: 20px;
@@ -82,9 +88,12 @@ $LightGreen: #b9e7e7;
                 justify-content: space-between;
 
                 .logo {
+                    display: flex;
+                    align-items: center;
+
                     .link {
                         font-family: "Courier New", Courier, monospace;
-                        font-size: 30px;
+                        font-size: 1.5rem;
                         font-weight: bolder;
                         color: teal;
                     }
@@ -92,7 +101,7 @@ $LightGreen: #b9e7e7;
 
                 .links {
                     display: flex;
-                    gap: 20px;
+                    gap: 10px;
                     align-items: center;
 
                     h6 {
@@ -157,10 +166,10 @@ $LightGreen: #b9e7e7;
                 margin-top: 50px;
                 display: flex;
                 flex-direction: column;
-                gap: 150px;
+                gap: 50px;
 
                 @media screen and (max-width: 1024px) {
-                    gap: 60px;
+                    gap: 50px;
                 }
 
                 .post {
@@ -225,6 +234,7 @@ $LightGreen: #b9e7e7;
 
                 p {
                     font-size: 18px;
+                    line-height: 1.4;
                 }
 
                 button {
@@ -250,19 +260,19 @@ $LightGreen: #b9e7e7;
         // SINGLE
         .single {
             display: flex;
-            gap: 50px;
+            flex-direction: column;
+            gap: 30px;
             margin-top: 50px;
 
             .content {
-                flex: 5;
                 display: flex;
                 flex-direction: column;
                 gap: 30px;
 
                 img {
                     width: 100%;
-                    height: 300px;
-                    object-fit: cover;
+                    max-height: 400px;
+                    object-fit: contain;
                     border-radius: 5px;
                 }
 
@@ -301,16 +311,29 @@ $LightGreen: #b9e7e7;
 
                 p {
                     text-align: justify;
-                    line-height: 30px;
+                    line-height: 1.58;
                     font-size: 16px;
                 }
             }
 
+            .end {
+                color: #555;
+                text-align: center;
+                font-size: 80px;
+                letter-spacing: 5px;
+                margin-top: -80px;
+            }
+
+            h2 {
+                color: #555;
+            }
+
             // MENU
             .menu {
-                flex: 2;
+                // flex: 1;
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: wrap;
                 gap: 25px;
 
                 h1 {
@@ -322,15 +345,15 @@ $LightGreen: #b9e7e7;
                     display: flex;
                     flex-direction: column;
                     gap: 10px;
+                    width: 46%;
 
                     img {
                         width: 100%;
-                        height: 200px;
-                        object-fit: cover;
+                        object-fit: contain;
                         border-radius: 5px;
                     }
 
-                    h2 {
+                    h3 {
                         color: #555;
                     }
 
@@ -357,6 +380,7 @@ $LightGreen: #b9e7e7;
 
         .ql-editor {
             height: 200px;
+            width: 100%;
         }
 
         .add {
