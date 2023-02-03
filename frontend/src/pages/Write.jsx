@@ -25,6 +25,18 @@ function Write() {
             theme: "colored",
         });
 
+    const notifySuccess = (message) =>
+        toast.success(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+
     const state = useLocation().state;
 
     const [value, setValue] = useState(state?.desc || "");
@@ -63,6 +75,8 @@ function Write() {
                       img: imgUrl ? imgUrl : "",
                       date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
                   });
+
+            notifySuccess(res.data.message);
         } catch (error) {
             notifyError(error.response.data);
         }

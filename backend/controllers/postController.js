@@ -57,13 +57,10 @@ export const addPost = (req, res) => {
 
         db.query(q, [values], (err, data) => {
             if (err) res.status(500).json(err);
-            console.log(data);
-            return res
-                .status(201)
-                .json({
-                    message: "Published successfully",
-                    insertId: data.insertId,
-                });
+            return res.status(201).json({
+                message: "Published successfully",
+                insertId: data.insertId,
+            });
         });
     });
 };
@@ -107,7 +104,9 @@ export const updatePost = (req, res) => {
 
         db.query(q, [...values, postId, userInfo.id], (err, data) => {
             if (err) res.status(500).json(err);
-            return res.status(201).json("Updated and published successfully");
+            return res
+                .status(201)
+                .json({ message: "Updated and published successfully" });
         });
     });
 };
