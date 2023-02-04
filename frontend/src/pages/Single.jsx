@@ -92,7 +92,7 @@ function Single() {
             </div>
             <br />
             <p className="end">...</p>
-            <h2>Otherposts you may like</h2>
+            <h2>Other posts you may like</h2>
             {post.category && <Menu category={post.category} />}
         </div>
     );

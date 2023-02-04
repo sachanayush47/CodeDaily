@@ -130,34 +130,34 @@ function Write() {
                         <input
                             type="radio"
                             name="cat"
-                            value="dsa"
-                            id="dsa"
-                            checked={category === "dsa"}
-                            onChange={(e) => setCategory(e.target.value)}
-                        />
-                        <label htmlFor="dsa">DSA</label>
-                    </div>
-                    <div className="cat">
-                        <input
-                            type="radio"
-                            name="cat"
-                            value="webdev"
-                            id="webdev"
-                            checked={category === "webdev"}
-                            onChange={(e) => setCategory(e.target.value)}
-                        />
-                        <label htmlFor="webdev">WebDev</label>
-                    </div>
-                    <div className="cat">
-                        <input
-                            type="radio"
-                            name="cat"
                             value="languages"
                             id="languages"
                             checked={category === "languages"}
                             onChange={(e) => setCategory(e.target.value)}
                         />
-                        <label htmlFor="languages">Languages</label>
+                        <label htmlFor="dsa">Languages</label>
+                    </div>
+                    <div className="cat">
+                        <input
+                            type="radio"
+                            name="cat"
+                            value="lib"
+                            id="lib"
+                            checked={category === "lib"}
+                            onChange={(e) => setCategory(e.target.value)}
+                        />
+                        <label htmlFor="webdev">Framework & Libaries</label>
+                    </div>
+                    <div className="cat">
+                        <input
+                            type="radio"
+                            name="cat"
+                            value="dsa"
+                            id="dsa"
+                            checked={category === "dsa"}
+                            onChange={(e) => setCategory(e.target.value)}
+                        />
+                        <label htmlFor="languages">DSA</label>
                     </div>
                     <div className="cat">
                         <input
@@ -174,12 +174,23 @@ function Write() {
                         <input
                             type="radio"
                             name="cat"
-                            value="tricks"
-                            id="tricks"
-                            checked={category === "tricks"}
+                            value="jobs"
+                            id="jobs"
+                            checked={category === "jobs"}
                             onChange={(e) => setCategory(e.target.value)}
                         />
-                        <label htmlFor="tricks">Tricks</label>
+                        <label htmlFor="tricks">Jobs & Internships</label>
+                    </div>
+                    <div className="cat">
+                        <input
+                            type="radio"
+                            name="cat"
+                            value="news"
+                            id="news"
+                            checked={category === "news"}
+                            onChange={(e) => setCategory(e.target.value)}
+                        />
+                        <label htmlFor="tricks">Tech News</label>
                     </div>
                     <div className="cat">
                         <input

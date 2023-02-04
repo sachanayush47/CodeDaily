@@ -16,25 +16,6 @@ function Navbar() {
                     </Link>
                 </div>
                 <div className="links">
-                    {/* <Link className="link" to="/?cat=dsa">
-                        <h6>DSA</h6>
-                    </Link>
-                    <Link className="link" to="/?cat=webdev">
-                        <h6>WebDev</h6>
-                    </Link>
-                    <Link className="link" to="/?cat=languages">
-                        <h6>Languages</h6>
-                    </Link>
-                    <Link className="link" to="/?cat=sql">
-                        <h6>SQL</h6>
-                    </Link>
-                    <Link className="link" to="/?cat=tricks">
-                        <h6>Tricks</h6>
-                    </Link>
-                    <Link className="link" to="/?cat=others">
-                        <h6>Others</h6>
-                    </Link> */}
-
                     <span>
                         {currentUser ? (
                             currentUser.username

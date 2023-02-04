@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import CategoryDropdown from "../components/CategoryDropdown";
 
 const parseHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -46,6 +47,8 @@ function Home() {
     return (
         <div className="home">
             <ToastContainer />
+            <CategoryDropdown />
+
             <div className="posts">
                 {posts.map((post) => (
                     <div className="post" key={post.id}>
