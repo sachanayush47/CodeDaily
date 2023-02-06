@@ -1,37 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { notifyError, notifySuccess } from "../utils/toastify";
 
 function Register() {
-    // Message dialog: Success
-    const notifySuccess = (message) =>
-        toast.success(message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-
-    // Message dialog: Error
-    const notifyError = (message) =>
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-
     const [inputs, setInputs] = useState({
         username: "",
         email: "",
@@ -58,7 +31,6 @@ function Register() {
 
     return (
         <div className="auth">
-            <ToastContainer />
             <h1>Register</h1>
             <form>
                 <input

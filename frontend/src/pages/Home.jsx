@@ -1,10 +1,8 @@
 import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 import CategoryDropdown from "../components/CategoryDropdown";
+import { notifyError } from "../utils/toastify";
 
 const parseHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -12,19 +10,6 @@ const parseHtml = (html) => {
 };
 
 function Home() {
-    // Message dialog: Error
-    const notifyError = (message) =>
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-
     const [posts, setPosts] = useState([]);
 
     const category = useLocation().search;
@@ -35,9 +20,7 @@ function Home() {
                 const res = await axios.get(`/posts${category}`);
                 setPosts(res.data);
             } catch (error) {
-                notifyError(
-                    "Something went wrong. Unable to fetch posts, please try again."
-                );
+                notifyError("Something went wrong");
             }
         };
 
@@ -46,14 +29,13 @@ function Home() {
 
     return (
         <div className="home">
-            <ToastContainer />
             <CategoryDropdown />
 
             <div className="posts">
                 {posts.map((post) => (
                     <div className="post" key={post.id}>
                         <div className="img">
-                            <img src={`./uploads/${post.img}`} alt="" />
+                            <img src={post.img} alt="" />
                         </div>
                         <div className="content">
                             <Link className="link" to={`/post/${post.id}`}>

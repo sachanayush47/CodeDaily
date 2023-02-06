@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { Navigate, redirect, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import moment from "moment";
-import { toast, ToastContainer } from "react-toastify";
+import { notifyError, notifySuccess } from "../utils/toastify";
 
 const textBoxPlaceholder =
     "Start writing here.." +
@@ -13,30 +13,6 @@ const textBoxPlaceholder =
     "\n 3. Posts are automatically categorized as 'other' by default";
 
 function Write() {
-    const notifyError = (message) =>
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-
-    const notifySuccess = (message) =>
-        toast.success(message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-
     const state = useLocation().state;
 
     const [value, setValue] = useState(state?.desc || "");
@@ -54,6 +30,8 @@ function Write() {
             console.log(error);
         }
     };
+
+    const navigate = useNavigate();
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -76,6 +54,7 @@ function Write() {
                       date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
                   });
 
+            navigate(`/post/${res.data.insertId}`);
             notifySuccess(res.data.message);
         } catch (error) {
             notifyError(error.response.data);
@@ -84,7 +63,6 @@ function Write() {
 
     return (
         <div className="add">
-            <ToastContainer />
             <div className="content">
                 <input
                     value={title}

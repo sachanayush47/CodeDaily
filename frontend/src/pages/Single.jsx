@@ -4,29 +4,16 @@ import Delete from "../img/delete.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Menu from "../components/Menu";
 import axios from "axios";
-import { toast } from "react-toastify";
 import moment from "moment";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContextProvider";
 import DOMPurify from "dompurify";
+import { notifyError, notifySuccess } from "../utils/toastify";
 
 function Single() {
     useEffect(() => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-
-    // Message dialog: Error
-    const notifyError = (message) =>
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
 
     const { currentUser } = useContext(AuthContext);
 
@@ -36,25 +23,27 @@ function Single() {
     const postId = location.pathname.split("/")[2];
 
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchPost = async () => {
             try {
                 const res = await axios.get(`/posts/${postId}`);
                 setPost(res.data);
             } catch (error) {
-                notifyError(
-                    "Something went wrong. Unable to fetch posts, please try again."
-                );
+                notifyError("Something went wrong");
             }
         };
 
-        fetchPosts();
+        fetchPost();
     }, [postId]);
 
     const navigate = useNavigate();
 
     const handleDelete = async () => {
+        const temp = post.img.split("/");
+        const imgId = temp[temp.length - 1].split(".")[0];
         try {
-            const res = await axios.delete(`/posts/${postId}`);
+            await axios.delete(`/upload/${imgId}`);
+            await axios.delete(`/posts/${postId}`);
+            notifySuccess("Post deleted successfully");
             navigate("/");
         } catch (error) {
             notifyError(
@@ -66,7 +55,7 @@ function Single() {
     return (
         <div className="single">
             <div className="content">
-                <img src={`../uploads/${post.img}`} alt="" />
+                <img src={post.img} alt="" />
                 <div className="user">
                     {post.userImg && <img src={post.userImg} alt="" />}
                     <div className="info">

@@ -1,7 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cloudinary from "cloudinary";
 import multer from "multer";
+import fs from "fs";
 
 // Routes
 import postRoutes from "./routes/postRoutes.js";
@@ -9,7 +11,6 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
-
 const app = express();
 
 app.use(express.json());
@@ -19,21 +20,47 @@ app.use(cookieParser());
 // Multer storage, stores user uploaded images
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "../frontend/public/uploads");
+        cb(null, "./uploads");
     },
     filename: function (req, file, cb) {
         const modifiedFilename = file.originalname.replace(/\s+/g, "");
-
         cb(null, Date.now() + modifiedFilename);
     },
 });
 
 const upload = multer({ storage: storage });
 
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
+
+async function uploadToCloudinary(locaFilePath) {
+    const result = await cloudinary.uploader.upload(locaFilePath, {
+        folder: "posts",
+    });
+
+    // Image has been successfully uploaded on cloudinary So we dont need local image
+    // file anymore Remove file from local uploads folder
+    fs.unlinkSync(locaFilePath);
+    return {
+        message: "Success",
+        url: result.secure_url,
+    };
+}
+
 // Upload image endpoint
-app.post("/api/upload", upload.single("image"), (req, res) => {
-    const file = req.file;
-    res.status(200).json(file.filename);
+app.post("/api/upload", upload.single("image"), async (req, res) => {
+    const locaFilePath = req.file.path;
+    const result = await uploadToCloudinary(locaFilePath);
+    return res.status(200).json(result.url);
+});
+
+// Delete image from cloudinary
+app.delete("/api/upload/:id", async (req, res) => {
+    await cloudinary.uploader.destroy(req.params.id);
+    return res.status(200).json({ message: "Image has been deleted" });
 });
 
 app.use("/api/posts", postRoutes);

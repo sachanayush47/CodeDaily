@@ -1,38 +1,9 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useContext } from "react";
 import { AuthContext } from "../context/authContextProvider";
+import { notifyError, notifySuccess } from "../utils/toastify";
 
 function Login() {
-    // Message dialog: Success
-    const notifySuccess = (message) =>
-        toast.success(message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-
-    // Message dialog: Error
-    const notifyError = (message) =>
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-
     const [inputs, setInputs] = useState({
         username: "",
         password: "",
@@ -51,7 +22,7 @@ function Login() {
 
         try {
             await login(inputs);
-            notifySuccess("Logged in successfully.");
+            notifySuccess("Logged in successfully");
             navigate("/");
         } catch (error) {
             notifyError(error.response.data);
@@ -60,7 +31,6 @@ function Login() {
 
     return (
         <div className="auth">
-            <ToastContainer />
             <h1>Login</h1>
             <form>
                 <input

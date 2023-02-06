@@ -50,10 +50,10 @@ export const addPost = (req, res) => {
             userInfo.id,
         ];
 
-        if (req.body.desc.length < 200)
-            return res
-                .status(400)
-                .json("Character count of description is less then 200");
+        // if (req.body.desc.length < 200)
+        //     return res
+        //         .status(400)
+        //         .json("Character count of description is less then 200");
 
         db.query(q, [values], (err, data) => {
             if (err) res.status(500).json(err);
@@ -104,9 +104,10 @@ export const updatePost = (req, res) => {
 
         db.query(q, [...values, postId, userInfo.id], (err, data) => {
             if (err) res.status(500).json(err);
-            return res
-                .status(201)
-                .json({ message: "Updated and published successfully" });
+            return res.status(201).json({
+                message: "Updated and published successfully",
+                insertId: postId,
+            });
         });
     });
 };
