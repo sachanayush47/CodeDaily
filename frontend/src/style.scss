@@ -403,6 +403,10 @@ $LightGreen: #b9e7e7;
                     text-align: justify;
                     line-height: 1.58;
                     font-size: 18px;
+
+                    pre {
+                        overflow-x: auto;
+                    }
                 }
             }
 

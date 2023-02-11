@@ -6,12 +6,41 @@ import { useNavigate, useLocation } from "react-router-dom";
 import moment from "moment";
 import { notifyError, notifySuccess } from "../utils/toastify";
 
+const modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, 4] }],
+        [{ size: [] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image"],
+        ["code-block"],
+    ],
+};
+
+const formats = [
+    "header",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "image",
+    "code-block",
+];
+
 const textBoxPlaceholder =
     "Start writing here.." +
     "\n 1. Description should have at least 200 characters" +
     "\n 2. Title should have at least 10 characters" +
-    "\n 3. Posts are automatically categorized as 'other' by default";
-
+    "\n 3. Posts are automatically categorized as 'other' by default" +
+    "\n 4. Keep all content respectful and professional" +
+    "\n 5. No spamming or self-promotion without adding value to the discussion" +
+    "\n 6. Refrain from posting illegal or offensive material" +
+    "\n 7. Respect the intellectual property rights of others";
 function Write() {
     const state = useLocation().state;
 
@@ -76,6 +105,8 @@ function Write() {
                         theme="snow"
                         value={value}
                         onChange={setValue}
+                        modules={modules}
+                        format={formats}
                         placeholder={textBoxPlaceholder}
                     />
                 </div>

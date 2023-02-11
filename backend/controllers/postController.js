@@ -50,10 +50,10 @@ export const addPost = (req, res) => {
             userInfo.id,
         ];
 
-        // if (req.body.desc.length < 200)
-        //     return res
-        //         .status(400)
-        //         .json("Character count of description is less then 200");
+        if (req.body.desc.length < 200 || req.body.title.length < 10)
+            return res
+                .status(400)
+                .json("The title or description is too short");
 
         db.query(q, [values], (err, data) => {
             if (err) res.status(500).json(err);

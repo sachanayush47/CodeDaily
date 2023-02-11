@@ -8,7 +8,12 @@ function CategoryDropdown() {
 
             <input type="checkbox" className="dd-input" id="test" />
 
-            <ul className="dd-menu">
+            <ul
+                className="dd-menu"
+                onClick={() =>
+                    (document.getElementById("test").checked = false)
+                }
+            >
                 <li>
                     <Link className="link" to="/?cat=languages">
                         <h6>Languages</h6>
