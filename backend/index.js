@@ -5,6 +5,9 @@ import cloudinary from "cloudinary";
 import multer from "multer";
 import fs from "fs";
 
+// Error handler
+import errorHandler from "./middleware/errorHandler.js";
+
 // Routes
 import postRoutes from "./routes/postRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -67,6 +70,8 @@ app.use("/api/posts", postRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 
+app.use(errorHandler);
+
 app.listen(process.env.PORT, () => {
-    console.log("Server stared sucessfully");
+    console.log("Server stared sucessfully at port " + process.env.PORT);
 });

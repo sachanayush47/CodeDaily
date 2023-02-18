@@ -1,72 +1,74 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import asyncHandler from "express-async-handler";
 import { db } from "../db.js";
 
-// Register user
-export const register = (req, res) => {
+// @desc    Add a new user to DB
+// @route   POST /api/auth/register
+// @access  Public
+export const register = asyncHandler(async (req, res) => {
     const { email, username, password } = req.body;
 
-    // Validating data.
-    if (!email || !username || !password)
-        return res.status(400).json("Please enter all the fields.");
+    // Looking for missing fields
+    if (!email || !username || !password) {
+        res.status(400);
+        throw new Error("One or more fields are missing.");
+    }
 
     // Check if user already exist.
-    const q = "SELECT * FROM users WHERE email = ? OR username = ?";
+    const existQuery = "SELECT * FROM users WHERE email = ? OR username = ?";
+    const [isExist] = await db.execute(existQuery, [email, username]);
 
-    db.query(q, [email, username], (err, data) => {
-        if (err) return res.json(err); // Handling error
-        if (data.length) return res.status(409).json("User already exists."); // Handling existing users
+    if (isExist.length > 0) {
+        res.status(409);
+        throw new Error("The user already exists.");
+    }
 
-        // User does not exist, hashing password and creating a new user.
-        const salt = bcryptjs.genSaltSync(10);
-        const hash = bcryptjs.hashSync(password, salt);
+    // User does not exist, hashing password and creating a new user.
+    const salt = bcryptjs.genSaltSync(10);
+    const hash = bcryptjs.hashSync(password, salt);
 
-        const q =
-            "INSERT INTO users(`username`, `email`, `password`) VALUES (?)";
-        const values = [username, email, hash];
-        db.query(q, [values], (err, data) => {
-            if (err) return res.json(err);
-            return res.json("User has been created.");
-        });
-    });
-};
+    const q = "INSERT INTO users(`username`, `email`, `password`) VALUES (?, ?, ?)";
+    const [data] = await db.execute(q, [username, email, hash]);
 
-// Login user
-export const login = (req, res) => {
+    return res.json({ message: "Thank you for registering to our platform." });
+});
+
+// @desc    Authenticate the user
+// @route   POST /api/auth/login
+// @access  Public
+export const login = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
 
     // Check if user exist in the DB or not.
     const q = "SELECT * FROM users WHERE username = ?";
-    db.query(q, [username], (err, data) => {
-        if (err) return res.json(err);
-        if (data.length === 0) return res.status(404).json("Invalid username");
+    const [data] = await db.execute(q, [username]);
 
-        // User exist in the DB, checking password.
-        const isPasswordCorrect = bcryptjs.compareSync(
-            password,
-            data[0].password
-        );
+    if (data.length === 0) {
+        res.status(404);
+        throw new Error("Invalid username, please try again");
+    }
 
-        if (!isPasswordCorrect)
-            return res.status(400).json("Invalid username or password");
-        else {
-            const { password, ...otherUserData } = data;
+    // User exist in the DB, checking password.
+    const isPasswordCorrect = bcryptjs.compareSync(password, data[0].password);
 
-            const token = jwt.sign({ id: data[0].id }, process.env.JWT_KEY);
-            res.cookie("access_token", token, {
-                maxAge: 24 * 365 * 60 * 60 * 1000,
-                httpOnly: true,
-            })
-                .status(200)
-                .json(otherUserData);
-        }
-    });
-};
+    if (!isPasswordCorrect) {
+        res.status(400);
+        throw new Error("Invalid username or password, please try again");
+    }
 
-// Logout user
-export const logout = (req, res) => {
-    res.clearCookie("access_token", { sameSite: "none", secure: true })
+    const { password: hashedPassword, ...otherUserData } = data[0];
+
+    const token = jwt.sign({ id: data[0].id }, process.env.JWT_KEY, { expiresIn: "180d" });
+
+    res.cookie("access_token", token, { maxAge: 180 * 24 * 60 * 60 * 1000, httpOnly: true })
         .status(200)
-        .json("User has been logout.");
+        .json(otherUserData);
+});
+
+// @desc    Deauthenticate the user
+// @route   POST /api/auth/logout
+// @access  Public
+export const logout = (req, res) => {
+    res.clearCookie("access_token", { sameSite: "none", secure: true }).status(200).json();
 };

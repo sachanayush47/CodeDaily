@@ -1,113 +1,104 @@
-import jwt from "jsonwebtoken";
 import { db } from "../db.js";
+import asyncHandler from "express-async-handler";
 
-// Get all posts
-export const getPosts = (req, res) => {
-    const category = req.query.cat;
+// @desc    Fetch all blog posts
+// @route   GET /api/posts
+// @access  Public
+export const getPosts = asyncHandler(async (req, res) => {
+    let category = req.query.cat;
     const q = category
         ? "SELECT * FROM posts WHERE category = ? ORDER BY date DESC"
         : "SELECT * FROM posts ORDER BY date DESC";
 
-    db.query(q, [category], (err, data) => {
-        if (err) return res.json(err);
+    if (category === undefined) category = null;
+    const [data] = await db.execute(q, [category]);
 
-        // Limiting character count
-        data.forEach((item) => {
-            item.desc = item.desc.substring(0, 200);
-        });
+    // Limiting character count of description
+    data.forEach((post) => (post.desc = post.desc.substring(0, 200)));
+    return res.status(200).json(data);
+});
 
-        return res.status(200).json(data);
-    });
-};
-
-// Get a post
-export const getPost = (req, res) => {
+// @desc    Fetch a blog post
+// @route   GET /api/posts/:id
+// @access  Public
+export const getPost = asyncHandler(async (req, res) => {
     const q =
         "SELECT posts.id, `username`, `title`, `desc`, posts.img, users.img AS userImg, `category`, `date` FROM users JOIN posts on users.id = posts.uid WHERE posts.id = ?";
-    db.query(q, [req.params.id], (err, data) => {
-        if (err) return res.status(404).json(err);
-        return res.status(200).json(data[0]);
+
+    const [data] = await db.execute(q, [req.params.id]);
+
+    if (data.length == 0) {
+        res.status(404);
+        throw new Error("The post ID is invalid or the post has been deleted.");
+    }
+
+    return res.status(200).json(data[0]);
+});
+
+// @desc    Add a new blog post to DB
+// @route   POST /api/posts
+// @access  Private
+export const addPost = asyncHandler(async (req, res) => {
+    const q =
+        "INSERT INTO posts(`title`, `desc`, `img`, `category`, `date`, `uid`) VALUES (?, ?, ?, ?, ?, ?)";
+
+    const body = req.body;
+
+    if (!body.title || !body.desc || !body.img || !body.date) {
+        res.status(422);
+        throw new Error("One or more fields are missing.");
+    }
+
+    if (req.body.desc.length < 200 || req.body.title.length < 10) {
+        res.status(400);
+        throw new Error("The title or description is too short.");
+    }
+
+    const [data] = await db.execute(q, [
+        body.title,
+        body.desc,
+        body.img,
+        body.category,
+        body.date,
+        userInfo.id,
+    ]);
+    return res.status(201).json({
+        message: "Published successfully",
+        insertId: data.insertId,
     });
-};
+});
 
-// Add a new post to DB
-export const addPost = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated");
+// @desc    Delete a blog post from DB
+// @route   DELETE /api/posts/:id
+// @access  Private
+export const deletePost = asyncHandler(async (req, res) => {
+    const q = "DELETE FROM posts WHERE id = ? AND uid = ?";
 
-    jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) res.status(403).json("Invalid token");
+    const [data] = await db.execute(q, [req.params.id, req.user.id]);
+    res.json({ message: "The post has been deleted." });
+});
 
-        const q =
-            "INSERT INTO posts(`title`, `desc`, `img`, `category`, `date`, `uid`) VALUES (?)";
+// @desc    Update a blog post
+// @route   PUT /api/posts/:id
+// @access  Private
+export const updatePost = asyncHandler(async (req, res) => {
+    const postId = req.params.id;
 
-        const values = [
-            req.body.title,
-            req.body.desc,
-            req.body.img,
-            req.body.category,
-            req.body.date,
-            userInfo.id,
-        ];
+    const q =
+        "UPDATE posts SET `title` = ?, `desc` = ?, `img` = ?, `category` = ? WHERE id = ? AND uid = ?";
 
-        if (req.body.desc.length < 200 || req.body.title.length < 10)
-            return res
-                .status(400)
-                .json("The title or description is too short");
+    const body = req.body;
+    const values = [body.title, body.desc, body.img, body.category];
 
-        db.query(q, [values], (err, data) => {
-            if (err) res.status(500).json(err);
-            return res.status(201).json({
-                message: "Published successfully",
-                insertId: data.insertId,
-            });
-        });
+    if (!body.title || !body.desc || !body.img) {
+        res.status(422);
+        throw new Error("One or more fields are missing.");
+    }
+
+    await db.execute(q, [...values, postId, req.user.id]);
+
+    return res.status(201).json({
+        message: "The post has been successfully updated and published.",
+        insertId: postId,
     });
-};
-
-// Delete a post from the DB
-export const deletePost = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated");
-
-    jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) res.status(403).json("Invalid token");
-        const q = "DELETE FROM posts WHERE id = ? AND uid = ?";
-
-        db.query(q, [req.params.id, userInfo.id], (err, data) => {
-            if (err) res.status(403).status("Unauthorized");
-
-            res.json("Post has been deleted");
-        });
-    });
-};
-
-// Update a post from the DB
-export const updatePost = (req, res) => {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not authenticated");
-
-    jwt.verify(token, process.env.JWT_KEY, (err, userInfo) => {
-        if (err) res.status(403).json("Invalid token");
-
-        const postId = req.params.id;
-
-        const q =
-            "UPDATE posts SET `title` = ?, `desc` = ?, `img` = ?, `category` = ? WHERE id = ? AND uid = ?";
-
-        const values = [
-            req.body.title,
-            req.body.desc,
-            req.body.img,
-            req.body.category,
-        ];
-
-        db.query(q, [...values, postId, userInfo.id], (err, data) => {
-            if (err) res.status(500).json(err);
-            return res.status(201).json({
-                message: "Updated and published successfully",
-                insertId: postId,
-            });
-        });
-    });
-};
+});

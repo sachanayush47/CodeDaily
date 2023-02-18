@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Edit from "../img/edit.png";
-import Delete from "../img/delete.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Menu from "../components/Menu";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import { useContext } from "react";
-import { AuthContext } from "../context/authContextProvider";
 import DOMPurify from "dompurify";
+
+import Edit from "../img/edit.png";
+import Delete from "../img/delete.png";
+
+import Menu from "../components/Menu";
+import { AuthContext } from "../context/authContextProvider";
 import { notifyError, notifySuccess } from "../utils/toastify";
 
 function Single() {
@@ -19,8 +20,7 @@ function Single() {
 
     const [post, setPost] = useState({});
 
-    const location = useLocation();
-    const postId = location.pathname.split("/")[2];
+    const { id: postId } = useParams();
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -28,7 +28,7 @@ function Single() {
                 const res = await axios.get(`/posts/${postId}`);
                 setPost(res.data);
             } catch (error) {
-                notifyError("Something went wrong");
+                notifyError(error.response.data.message);
             }
         };
 
@@ -41,14 +41,14 @@ function Single() {
         const temp = post.img.split("/");
         const imgId = temp[temp.length - 1].split(".")[0];
         try {
-            await axios.delete(`/upload/${imgId}`);
-            await axios.delete(`/posts/${postId}`);
-            notifySuccess("Post deleted successfully");
+            console.log(imgId);
+            const r = await axios.delete(`/upload/${imgId}`);
+            console.log(r);
+            const res = await axios.delete(`/posts/${postId}`);
+            notifySuccess(res.data.message);
             navigate("/");
         } catch (error) {
-            notifyError(
-                "Something went wrong. Unable to fetch posts, please try again."
-            );
+            notifyError(error.response.data.message);
         }
     };
 

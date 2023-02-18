@@ -41,6 +41,7 @@ const textBoxPlaceholder =
     "\n 5. No spamming or self-promotion without adding value to the discussion" +
     "\n 6. Refrain from posting illegal or offensive material" +
     "\n 7. Respect the intellectual property rights of others";
+
 function Write() {
     const state = useLocation().state;
 
@@ -86,7 +87,7 @@ function Write() {
             navigate(`/post/${res.data.insertId}`);
             notifySuccess(res.data.message);
         } catch (error) {
-            notifyError(error.response.data);
+            notifyError(error.response.data.message);
         }
     };
 
