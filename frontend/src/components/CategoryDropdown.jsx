@@ -10,45 +10,43 @@ function CategoryDropdown() {
 
             <ul
                 className="dd-menu"
-                onClick={() =>
-                    (document.getElementById("test").checked = false)
-                }
+                onClick={() => (document.getElementById("test").checked = false)}
             >
-                <li>
-                    <Link className="link" to="/?cat=languages">
+                <Link className="link" to="/?cat=languages">
+                    <li>
                         <h6>Languages</h6>
-                    </Link>
-                </li>
-                <li>
-                    <Link className="link" to="/?cat=lib">
+                    </li>
+                </Link>
+                <Link className="link" to="/?cat=lib">
+                    <li>
                         <h6>Framework & Libaries</h6>
-                    </Link>
-                </li>
-                <li>
-                    <Link className="link" to="/?cat=dsa">
+                    </li>
+                </Link>
+                <Link className="link" to="/?cat=dsa">
+                    <li>
                         <h6>DSA</h6>
-                    </Link>
-                </li>
-                <li>
-                    <Link className="link" to="/?cat=sql">
+                    </li>
+                </Link>
+                <Link className="link" to="/?cat=sql">
+                    <li>
                         <h6>SQL</h6>
-                    </Link>
-                </li>
-                <li>
-                    <Link className="link" to="/?cat=jobs">
+                    </li>
+                </Link>
+                <Link className="link" to="/?cat=jobs">
+                    <li>
                         <h6>Jobs & Internships</h6>
-                    </Link>
-                </li>
-                <li>
-                    <Link className="link" to="/?cat=news">
+                    </li>
+                </Link>
+                <Link className="link" to="/?cat=news">
+                    <li>
                         <h6>Tech News</h6>
-                    </Link>
-                </li>
-                <li>
-                    <Link className="link" to="/?cat=others">
+                    </li>
+                </Link>
+                <Link className="link" to="/?cat=others">
+                    <li>
                         <h6>Others</h6>
-                    </Link>
-                </li>
+                    </li>
+                </Link>
                 {/* <li className="divider"></li> */}
                 {/* <li>
                     <a href="http://google.com">Link to</a>

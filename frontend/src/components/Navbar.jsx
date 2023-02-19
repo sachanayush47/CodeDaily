@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContextProvider";
@@ -35,11 +34,9 @@ function Navbar() {
                             </Link>
                         </span>
                     )}
-                    <span className="write">
-                        <Link className="link" to="/write">
-                            Write
-                        </Link>
-                    </span>
+                    <Link className="link" to="/write">
+                        <span className="write">Write</span>
+                    </Link>
                 </div>
             </div>
         </div>

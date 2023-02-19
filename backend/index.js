@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
 import multer from "multer";
 import fs from "fs";
-
+import path from "path";
 // Error handler
 import errorHandler from "./middleware/errorHandler.js";
 
@@ -31,7 +31,21 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage: storage,
+
+    limits: {
+        fileSize: 1 * 1024 * 1024, // 1 MB
+    },
+
+    fileFilter: function (req, file, callback) {
+        const ext = path.extname(file.originalname);
+        if (ext !== ".jpg" && ext !== ".jpeg") {
+            return callback(new Error("Only JPG and JPEG images formats are allowed"));
+        }
+        callback(null, true);
+    },
+});
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,

@@ -60,8 +60,9 @@ export const addPost = asyncHandler(async (req, res) => {
         body.img,
         body.category,
         body.date,
-        userInfo.id,
+        req.user.id,
     ]);
+
     return res.status(201).json({
         message: "Published successfully",
         insertId: data.insertId,

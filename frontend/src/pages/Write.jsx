@@ -36,8 +36,8 @@ const textBoxPlaceholder =
     "Start writing here.." +
     "\n 1. Description should have at least 200 characters" +
     "\n 2. Title should have at least 10 characters" +
-    "\n 3. Posts are automatically categorized as 'other' by default" +
-    "\n 4. Keep all content respectful and professional" +
+    "\n 3. All the fields are mandatory including image" +
+    "\n 4. Accepted image formats are limited to JPEG and JPG, with a maximum file size of 1MB." +
     "\n 5. No spamming or self-promotion without adding value to the discussion" +
     "\n 6. Refrain from posting illegal or offensive material" +
     "\n 7. Respect the intellectual property rights of others";
@@ -57,7 +57,7 @@ function Write() {
             const res = await axios.post("/upload", formData);
             return res.data;
         } catch (error) {
-            console.log(error);
+            notifyError(error.response.data.message);
         }
     };
 
@@ -122,6 +122,7 @@ function Write() {
                         type="file"
                         id="file"
                         name="file"
+                        accept="image/jpg, image/jpeg"
                         onChange={(e) => setImage(e.target.files[0])}
                     />
 
@@ -145,7 +146,7 @@ function Write() {
                             checked={category === "languages"}
                             onChange={(e) => setCategory(e.target.value)}
                         />
-                        <label htmlFor="dsa">Languages</label>
+                        <label htmlFor="languages">Languages</label>
                     </div>
                     <div className="cat">
                         <input
@@ -156,7 +157,7 @@ function Write() {
                             checked={category === "lib"}
                             onChange={(e) => setCategory(e.target.value)}
                         />
-                        <label htmlFor="webdev">Framework & Libaries</label>
+                        <label htmlFor="lib">Framework & Libaries</label>
                     </div>
                     <div className="cat">
                         <input
@@ -167,7 +168,7 @@ function Write() {
                             checked={category === "dsa"}
                             onChange={(e) => setCategory(e.target.value)}
                         />
-                        <label htmlFor="languages">DSA</label>
+                        <label htmlFor="dsa">DSA</label>
                     </div>
                     <div className="cat">
                         <input
@@ -189,7 +190,7 @@ function Write() {
                             checked={category === "jobs"}
                             onChange={(e) => setCategory(e.target.value)}
                         />
-                        <label htmlFor="tricks">Jobs & Internships</label>
+                        <label htmlFor="jobs">Jobs & Internships</label>
                     </div>
                     <div className="cat">
                         <input
@@ -200,7 +201,7 @@ function Write() {
                             checked={category === "news"}
                             onChange={(e) => setCategory(e.target.value)}
                         />
-                        <label htmlFor="tricks">Tech News</label>
+                        <label htmlFor="news">Tech News</label>
                     </div>
                     <div className="cat">
                         <input
