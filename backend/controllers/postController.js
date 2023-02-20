@@ -35,6 +35,16 @@ export const getPost = asyncHandler(async (req, res) => {
     return res.status(200).json(data[0]);
 });
 
+// @desc    Fetch a random blog post Id
+// @route   GET /api/posts/random
+// @access  Public
+export const getRandomPostId = asyncHandler(async (req, res) => {
+    const q = "SELECT id FROM posts ORDER BY RAND() LIMIT 1";
+
+    const [data] = await db.execute(q);
+    res.json({ postId: data[0].id });
+});
+
 // @desc    Add a new blog post to DB
 // @route   POST /api/posts
 // @access  Private

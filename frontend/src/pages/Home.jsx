@@ -5,6 +5,7 @@ import CategoryDropdown from "../components/CategoryDropdown";
 import { notifyError } from "../utils/toastify";
 
 import Fade from "react-reveal/Fade";
+import Random from "../components/Random";
 
 const parseHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -32,6 +33,7 @@ function Home() {
     return (
         <div className="home">
             <CategoryDropdown />
+            <Random />
             <Fade bottom cascade>
                 <div className="posts">
                     {posts.map((post) => (

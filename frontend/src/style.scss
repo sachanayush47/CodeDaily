@@ -345,6 +345,21 @@ $LightGreen: #b9e7e7;
                     background-color: #f6f6f6;
                 }
             }
+
+            #random {
+                margin-left: 5px;
+                display: inline-block;
+                border: 1px solid gray;
+                border-radius: 4px;
+                padding: 10px 20px 10px 20px;
+                background-color: #ffffff;
+                cursor: pointer;
+                color: #000000;
+                text-decoration: none;
+                &:hover {
+                    color: teal;
+                }
+            }
         }
 
         // SINGLE

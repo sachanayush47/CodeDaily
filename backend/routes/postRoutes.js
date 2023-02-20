@@ -1,11 +1,19 @@
 import express from "express";
-import { addPost, deletePost, getPost, getPosts, updatePost } from "../controllers/postController.js";
+import {
+    addPost,
+    deletePost,
+    getPost,
+    getPosts,
+    updatePost,
+    getRandomPostId,
+} from "../controllers/postController.js";
 
 import { verifyToken } from "../middleware/authHandler.js";
 
 const router = express.Router();
 
 router.get("/", getPosts);
+router.get("/random", getRandomPostId);
 router.get("/:id", getPost);
 router.post("/", verifyToken, addPost);
 router.delete("/:id", verifyToken, deletePost);

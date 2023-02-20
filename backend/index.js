@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import cloudinary from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 import multer from "multer";
 import fs from "fs";
 import path from "path";
@@ -76,7 +76,9 @@ app.post("/api/upload", upload.single("image"), async (req, res) => {
 
 // Delete image from cloudinary
 app.delete("/api/upload/:id", async (req, res) => {
-    await cloudinary.uploader.destroy(req.params.id);
+    await cloudinary.uploader.destroy(`posts/${req.params.id}`, {
+        invalidate: "true",
+    });
     return res.status(200).json({ message: "Image has been deleted" });
 });
 
