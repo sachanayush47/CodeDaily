@@ -21,11 +21,11 @@ function Register() {
         e.preventDefault();
 
         try {
-            await axios.post("/auth/register", inputs);
-            notifySuccess("User has been created.");
+            const res = await axios.post("/auth/register", inputs);
+            notifySuccess(res.data.message);
             navigate("/login");
         } catch (error) {
-            notifyError(error.response.data);
+            notifyError(error.response.data.message);
         }
     };
 
@@ -33,19 +33,8 @@ function Register() {
         <div className="auth">
             <h1>Register</h1>
             <form>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    onChange={onChange}
-                />
-                <input
-                    required
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    onChange={onChange}
-                />
+                <input type="text" name="username" placeholder="Username" onChange={onChange} />
+                <input required type="email" name="email" placeholder="Email" onChange={onChange} />
                 <input
                     required
                     type="password"

@@ -45,43 +45,33 @@ const textBoxPlaceholder =
 function Write() {
     const state = useLocation().state;
 
-    const [value, setValue] = useState(state?.desc || "");
+    const [desc, setDesc] = useState(state?.desc || "");
     const [title, setTitle] = useState(state?.title || "");
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(state?.img || null);
     const [category, setCategory] = useState(state?.category || "");
-
-    const upload = async () => {
-        try {
-            const formData = new FormData();
-            formData.append("image", image);
-            const res = await axios.post("/upload", formData);
-            return res.data;
-        } catch (error) {
-            notifyError(error.response.data.message);
-        }
-    };
 
     const navigate = useNavigate();
 
     const handleClick = async (e) => {
         e.preventDefault();
 
-        const imgUrl = image && (await upload());
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("title", title);
+        formData.append("desc", desc);
+        formData.append("category", category);
 
         try {
             const res = state
-                ? await axios.put(`/posts/${state.id}`, {
-                      title: title,
-                      desc: value,
-                      category: category,
-                      img: imgUrl || state?.img,
+                ? await axios.put(`/posts/${state.id}`, formData, {
+                      headers: {
+                          "Content-Type": "multipart/form-data",
+                      },
                   })
-                : await axios.post(`/posts/`, {
-                      title: title,
-                      desc: value,
-                      category: category,
-                      img: imgUrl ? imgUrl : "",
-                      date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+                : await axios.post(`/posts/`, formData, {
+                      headers: {
+                          "Content-Type": "multipart/form-data",
+                      },
                   });
 
             navigate(`/post/${res.data.insertId}`);
@@ -104,8 +94,8 @@ function Write() {
                     <ReactQuill
                         className="editor"
                         theme="snow"
-                        value={value}
-                        onChange={setValue}
+                        value={desc}
+                        onChange={setDesc}
                         modules={modules}
                         format={formats}
                         placeholder={textBoxPlaceholder}

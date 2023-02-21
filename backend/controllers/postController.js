@@ -1,5 +1,6 @@
 import { db } from "../db.js";
 import asyncHandler from "express-async-handler";
+import { uploadToCloudinary, deleteFromCloudinary } from "../fileHandling.js";
 
 // @desc    Fetch all blog posts
 // @route   GET /api/posts
@@ -49,29 +50,24 @@ export const getRandomPostId = asyncHandler(async (req, res) => {
 // @route   POST /api/posts
 // @access  Private
 export const addPost = asyncHandler(async (req, res) => {
-    const q =
-        "INSERT INTO posts(`title`, `desc`, `img`, `category`, `date`, `uid`) VALUES (?, ?, ?, ?, ?, ?)";
+    const { title, desc, category } = req.body;
+    const localFilePath = req.file.path;
 
-    const body = req.body;
-
-    if (!body.title || !body.desc || !body.img || !body.date) {
+    if (!title || !desc || !localFilePath || !category) {
         res.status(422);
         throw new Error("One or more fields are missing.");
     }
 
-    if (req.body.desc.length < 200 || req.body.title.length < 10) {
+    const result = await uploadToCloudinary(localFilePath);
+
+    const q = "INSERT INTO posts(`title`, `desc`, `img`, `category`, `uid`) VALUES (?, ?, ?, ?, ?)";
+
+    if (desc.length < 200 || title.length < 10) {
         res.status(400);
         throw new Error("The title or description is too short.");
     }
 
-    const [data] = await db.execute(q, [
-        body.title,
-        body.desc,
-        body.img,
-        body.category,
-        body.date,
-        req.user.id,
-    ]);
+    const [data] = await db.execute(q, [title, desc, result.url, category, req.user.id]);
 
     return res.status(201).json({
         message: "Published successfully",
@@ -83,9 +79,24 @@ export const addPost = asyncHandler(async (req, res) => {
 // @route   DELETE /api/posts/:id
 // @access  Private
 export const deletePost = asyncHandler(async (req, res) => {
-    const q = "DELETE FROM posts WHERE id = ? AND uid = ?";
+    const fetchPost = "SELECT uid, img FROM posts WHERE id = ?";
+    const [data] = await db.execute(fetchPost, [req.params.id]);
 
-    const [data] = await db.execute(q, [req.params.id, req.user.id]);
+    if (data.length == 0) {
+        res.status(404);
+        throw new Error("The post ID is invalid");
+    }
+
+    if (data[0].uid != req.user.id) {
+        res.status(402);
+        throw new Error("You are not authorized to perform this action.");
+    }
+
+    console.log(data[0].img);
+    await deleteFromCloudinary(data[0].img);
+
+    const q = "DELETE FROM posts WHERE id = ? AND uid = ?";
+    await db.execute(q, [req.params.id, req.user.id]);
     res.json({ message: "The post has been deleted." });
 });
 
@@ -93,20 +104,30 @@ export const deletePost = asyncHandler(async (req, res) => {
 // @route   PUT /api/posts/:id
 // @access  Private
 export const updatePost = asyncHandler(async (req, res) => {
+    const localFilePath = req?.file?.path;
+    const { title, desc, category } = req.body;
+
+    let image = req.body.image;
+    if (localFilePath) {
+        if (!title || !desc || !category) {
+            res.status(422);
+            throw new Error("One or more fields are missing.");
+        }
+
+        image = (await uploadToCloudinary(localFilePath)).url;
+    }
+
+    if (!title || !desc || !category || !image) {
+        res.status(422);
+        throw new Error("One or more fields are missing.");
+    }
+
     const postId = req.params.id;
 
     const q =
         "UPDATE posts SET `title` = ?, `desc` = ?, `img` = ?, `category` = ? WHERE id = ? AND uid = ?";
 
-    const body = req.body;
-    const values = [body.title, body.desc, body.img, body.category];
-
-    if (!body.title || !body.desc || !body.img) {
-        res.status(422);
-        throw new Error("One or more fields are missing.");
-    }
-
-    await db.execute(q, [...values, postId, req.user.id]);
+    await db.execute(q, [title, desc, image, category, postId, req.user.id]);
 
     return res.status(201).json({
         message: "The post has been successfully updated and published.",

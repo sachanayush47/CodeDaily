@@ -21,11 +21,12 @@ function Login() {
         e.preventDefault();
 
         try {
-            await login(inputs);
-            notifySuccess("Logged in successfully");
+            const res = await login(inputs);
+            notifySuccess("Login successful");
             navigate("/");
         } catch (error) {
-            notifyError(error.response.data);
+            console.log(error);
+            notifyError(error.response.data.message);
         }
     };
 

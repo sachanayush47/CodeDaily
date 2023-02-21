@@ -39,12 +39,7 @@ function Single() {
     const navigate = useNavigate();
 
     const handleDelete = async () => {
-        const temp = post.img.split("/");
-        const imgId = temp[temp.length - 1].split(".")[0];
         try {
-            console.log(imgId);
-            const r = await axios.delete(`/upload/${imgId}`);
-            console.log(r);
             const res = await axios.delete(`/posts/${postId}`);
             notifySuccess(res.data.message);
             navigate("/");
