@@ -107,12 +107,19 @@ export const updatePost = asyncHandler(async (req, res) => {
     const localFilePath = req?.file?.path;
     const { title, desc, category } = req.body;
 
+    const postId = req.params.id;
+
     let image = req.body.image;
     if (localFilePath) {
         if (!title || !desc || !category) {
             res.status(422);
             throw new Error("One or more fields are missing.");
         }
+
+        // First, delete the current image from the cloudinary.
+        const fetchImageUrlQuery = "SELECT img FROM posts WHERE id = ?";
+        const [data] = await db.execute(fetchImageUrlQuery, [postId]);
+        await deleteFromCloudinary(data[0].img);
 
         image = (await uploadToCloudinary(localFilePath)).url;
     }
@@ -121,8 +128,6 @@ export const updatePost = asyncHandler(async (req, res) => {
         res.status(422);
         throw new Error("One or more fields are missing.");
     }
-
-    const postId = req.params.id;
 
     const q =
         "UPDATE posts SET `title` = ?, `desc` = ?, `img` = ?, `category` = ? WHERE id = ? AND uid = ?";

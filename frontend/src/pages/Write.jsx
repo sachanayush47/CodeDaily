@@ -51,6 +51,7 @@ function Write() {
     const [category, setCategory] = useState(state?.category || "");
 
     const navigate = useNavigate();
+    console.log(image.name);
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -105,8 +106,8 @@ function Write() {
             <div className="menu">
                 <div className="item">
                     <h1>Publish</h1>
-                    <span>Status: draft</span>
-                    <span>Visibility: public</span>
+                    <span>Status: DRAFT</span>
+                    <span>Visibility: PUBLIC</span>
                     <input
                         style={{ display: "none" }}
                         type="file"
@@ -123,6 +124,7 @@ function Write() {
                         <button>Save as draft</button>
                         <button onClick={handleClick}>Publish</button>
                     </div>
+                    {image && <span className="image-name">{image.name}</span>}
                 </div>
                 <div className="item">
                     <h1>Category</h1>
