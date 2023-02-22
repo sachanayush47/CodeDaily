@@ -12,6 +12,8 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
+import { enable as enableDarkMode } from "darkreader";
+
 const Layout = () => {
     return (
         <>
@@ -52,6 +54,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+    enableDarkMode({
+        brightness: 100,
+        contrast: 95,
+        sepia: 0,
+    });
+
     return (
         <div className="app">
             <ToastContainer />

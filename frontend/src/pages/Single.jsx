@@ -4,13 +4,14 @@ import axios from "axios";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import Fade from "react-reveal/Fade";
+import { toast } from "react-toastify";
 
 import Edit from "../img/edit.png";
 import Delete from "../img/delete.png";
 
 import Menu from "../components/Menu";
 import { AuthContext } from "../context/authContextProvider";
-import { notifyError, notifySuccess } from "../utils/toastify";
+import { notifyError, updateToast } from "../utils/toastify";
 
 function Single() {
     useEffect(() => {
@@ -39,12 +40,14 @@ function Single() {
     const navigate = useNavigate();
 
     const handleDelete = async () => {
+        const id = toast.loading("Working...");
+
         try {
             const res = await axios.delete(`/posts/${postId}`);
-            notifySuccess(res.data.message);
+            updateToast(id, res.data.message, "success");
             navigate("/");
         } catch (error) {
-            notifyError(error.response.data.message);
+            updateToast(id, error.response.data.message, "error");
         }
     };
 

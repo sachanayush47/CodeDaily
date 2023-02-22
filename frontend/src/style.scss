@@ -177,7 +177,7 @@ $LightGreen: #b9e7e7;
 
                         img {
                             width: 100%;
-                            max-height: 400px;
+                            height: 200px;
                             object-fit: cover;
                             border: 1px solid #007070;
                             box-shadow: 4px 4px 4px teal;
@@ -188,26 +188,11 @@ $LightGreen: #b9e7e7;
 
                 @media screen and (max-width: 1024px) {
                     .post {
-                        display: flex;
                         flex-direction: column;
                         gap: 25px;
 
                         &:nth-child(2n + 1) {
                             flex-direction: column;
-                        }
-
-                        .img {
-                            flex: 2;
-                            position: relative;
-
-                            img {
-                                width: 100%;
-                                max-height: 400px;
-                                object-fit: cover;
-                                border: 1px solid teal;
-                                box-shadow: 9px 8px 1px $LightGreen;
-                                border-radius: 5px;
-                            }
                         }
                     }
                 }
@@ -421,6 +406,10 @@ $LightGreen: #b9e7e7;
 
                     pre {
                         overflow-x: auto;
+                        background-color: #333;
+                        padding: 15px;
+                        border: 1px solid rgb(0, 128, 128, 0.1);
+                        border-radius: 2px;
                     }
                 }
             }
@@ -552,7 +541,7 @@ $LightGreen: #b9e7e7;
 
                     .image-name {
                         font-size: 17px;
-                        font-weight: "bold";
+                        font-weight: 700;
                         margin: 1px 0px;
                     }
 

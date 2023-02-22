@@ -51,7 +51,7 @@ export const getRandomPostId = asyncHandler(async (req, res) => {
 // @access  Private
 export const addPost = asyncHandler(async (req, res) => {
     const { title, desc, category } = req.body;
-    const localFilePath = req.file.path;
+    const localFilePath = req?.file?.path;
 
     if (!title || !desc || !localFilePath || !category) {
         res.status(422);

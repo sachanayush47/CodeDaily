@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import moment from "moment";
-import { notifyError, notifySuccess } from "../utils/toastify";
+import { updateToast } from "../utils/toastify";
+import { toast } from "react-toastify";
 
 const modules = {
     toolbar: [
@@ -50,11 +50,14 @@ function Write() {
     const [image, setImage] = useState(state?.img || null);
     const [category, setCategory] = useState(state?.category || "");
 
+    const fileInputRef = useRef();
+
     const navigate = useNavigate();
-    console.log(image.name);
 
     const handleClick = async (e) => {
         e.preventDefault();
+        document.getElementById("submit").disabled = true;
+        document.getElementById("submit").style.backgroundColor = "#777";
 
         const formData = new FormData();
         formData.append("image", image);
@@ -62,23 +65,30 @@ function Write() {
         formData.append("desc", desc);
         formData.append("category", category);
 
-        try {
-            const res = state
-                ? await axios.put(`/posts/${state.id}`, formData, {
-                      headers: {
-                          "Content-Type": "multipart/form-data",
-                      },
-                  })
-                : await axios.post(`/posts/`, formData, {
-                      headers: {
-                          "Content-Type": "multipart/form-data",
-                      },
-                  });
+        const id = toast.loading("Working...");
 
+        try {
+            let res;
+            if (state) {
+                res = await axios.put(`/posts/${state.id}`, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+            } else {
+                res = await axios.post(`/posts/`, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+            }
+
+            updateToast(id, res.data.message, "success");
             navigate(`/post/${res.data.insertId}`);
-            notifySuccess(res.data.message);
         } catch (error) {
-            notifyError(error.response.data.message);
+            updateToast(id, error.response.data.message, "error");
+            document.getElementById("submit").disabled = false;
+            document.getElementById("submit").style.backgroundColor = "teal";
         }
     };
 
@@ -109,6 +119,7 @@ function Write() {
                     <span>Status: DRAFT</span>
                     <span>Visibility: PUBLIC</span>
                     <input
+                        ref={fileInputRef}
                         style={{ display: "none" }}
                         type="file"
                         id="file"
@@ -118,13 +129,13 @@ function Write() {
                     />
 
                     <div className="buttons">
-                        <button>
-                            <label htmlFor="file">Upload image</label>
-                        </button>
+                        <button onClick={() => fileInputRef.current.click()}>Upload image</button>
                         <button>Save as draft</button>
-                        <button onClick={handleClick}>Publish</button>
+                        <button id="submit" onClick={handleClick}>
+                            Publish
+                        </button>
                     </div>
-                    {image && <span className="image-name">{image.name}</span>}
+                    {image && <span className="image-name">{image?.name}</span>}
                 </div>
                 <div className="item">
                     <h1>Category</h1>
