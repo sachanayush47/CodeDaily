@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { updateToast } from "../utils/toastify";
+import { notifySuccess, updateToast } from "../utils/toastify";
 import { toast } from "react-toastify";
 
 const modules = {
@@ -45,14 +45,25 @@ const textBoxPlaceholder =
 function Write() {
     const state = useLocation().state;
 
-    const [desc, setDesc] = useState(state?.desc || "");
-    const [title, setTitle] = useState(state?.title || "");
+    console.log(localStorage.getItem("ssd"));
+
+    const [desc, setDesc] = useState(state?.desc || localStorage.getItem("desc") || "");
+    const [title, setTitle] = useState(state?.title || localStorage.getItem("title") || "");
     const [image, setImage] = useState(state?.img || null);
-    const [category, setCategory] = useState(state?.category || "");
+    const [category, setCategory] = useState(
+        state?.category || localStorage.getItem("category") || ""
+    );
 
     const fileInputRef = useRef();
 
     const navigate = useNavigate();
+
+    const saveAsDraft = () => {
+        localStorage.setItem("title", title);
+        localStorage.setItem("desc", desc);
+        localStorage.setItem("category", category);
+        notifySuccess("The draft has been saved.");
+    };
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -132,7 +143,7 @@ function Write() {
 
                     <div className="buttons">
                         <button onClick={() => fileInputRef.current.click()}>Upload image</button>
-                        <button>Save as draft</button>
+                        <button onClick={saveAsDraft}>Save as draft</button>
                         <button id="submit" onClick={handleClick}>
                             Publish
                         </button>
