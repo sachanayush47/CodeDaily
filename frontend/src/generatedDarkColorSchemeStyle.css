@@ -1,0 +1,494 @@
+/*
+                        _______
+                       /       \
+                      .==.    .==.
+                     ((  ))==((  ))
+                    / "=="    "=="\
+                   /____|| || ||___\
+       ________     ____    ________  ___    ___
+       |  ___  \   /    \   |  ___  \ |  |  /  /
+       |  |  \  \ /  /\  \  |  |  \  \|  |_/  /
+       |  |   )  /  /__\  \ |  |__/  /|  ___  \
+       |  |__/  /  ______  \|  ____  \|  |  \  \
+_______|_______/__/ ____ \__\__|___\__\__|___\__\____
+|  ___  \ |  ____/ /    \   |  ___  \ |  ____|  ___  \
+|  |  \  \|  |___ /  /\  \  |  |  \  \|  |___|  |  \  \
+|  |__/  /|  ____/  /__\  \ |  |   )  |  ____|  |__/  /
+|  ____  \|  |__/  ______  \|  |__/  /|  |___|  ____  \
+|__|   \__\____/__/      \__\_______/ |______|__|   \__\
+                https://darkreader.org
+*/
+
+/*! Dark reader generated CSS | Licensed under MIT https://github.com/darkreader/darkreader/blob/main/LICENSE */
+
+/* User-Agent Style */
+html {
+    background-color: #1d1f20 !important;
+}
+html {
+    color-scheme: dark !important;
+}
+html, body {
+    background-color: #1d1f20;
+}
+html, body {
+    border-color: #746c60;
+    color: #e3e1de;
+}
+a {
+    color: #3790f9;
+}
+table {
+    border-color: #565d60;
+}
+::placeholder {
+    color: #afa99f;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #434706 !important;
+    color: #e3e1de !important;
+}
+::-webkit-scrollbar {
+    background-color: #252829;
+    color: #a9a298;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #484d50;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #596063;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #4b5053;
+}
+::-webkit-scrollbar-corner {
+    background-color: #1d1f20;
+}
+::selection {
+    background-color: #0650a8 !important;
+    color: #e3e1de !important;
+}
+::-moz-selection {
+    background-color: #0650a8 !important;
+    color: #e3e1de !important;
+}
+
+/* Variables Style */
+:root {
+   --darkreader-neutral-background: #181a1b;
+   --darkreader-neutral-text: #d4d0cb;
+   --darkreader-selection-background: #0650a8;
+   --darkreader-selection-text: #e3e1de;
+}
+
+/* Modified CSS */
+.ql-editor {
+    outline-color: initial; 
+}
+.ql-editor ul[data-checked="true"] > li::before, .ql-editor ul[data-checked="false"] > li::before {
+    color: rgb(156, 147, 136);
+}
+.ql-editor .ql-bg-black {
+    background-color: rgb(6, 6, 6);
+}
+.ql-editor .ql-bg-red {
+    background-color: rgb(181, 6, 6);
+}
+.ql-editor .ql-bg-orange {
+    background-color: rgb(200, 122, 6);
+}
+.ql-editor .ql-bg-yellow {
+    background-color: rgb(152, 152, 6);
+}
+.ql-editor .ql-bg-green {
+    background-color: rgb(6, 111, 6);
+}
+.ql-editor .ql-bg-blue {
+    background-color: rgb(6, 84, 161);
+}
+.ql-editor .ql-bg-purple {
+    background-color: rgb(89, 6, 171);
+}
+.ql-editor .ql-color-white {
+    color: rgb(227, 225, 222);
+}
+.ql-editor .ql-color-red {
+    color: rgb(249, 47, 47);
+}
+.ql-editor .ql-color-orange {
+    color: rgb(249, 161, 31);
+}
+.ql-editor .ql-color-yellow {
+    color: rgb(249, 249, 31);
+}
+.ql-editor .ql-color-green {
+    color: rgb(108, 249, 108);
+}
+.ql-editor .ql-color-blue {
+    color: rgb(84, 175, 249);
+}
+.ql-editor .ql-color-purple {
+    color: rgb(156, 64, 249);
+}
+.ql-editor.ql-blank::before {
+    color: rgba(227, 225, 222, 0.6);
+}
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+    background-image: none;
+    background-color: initial;
+    border-color: initial;
+}
+.ql-snow.ql-toolbar button:active:hover,
+.ql-snow .ql-toolbar button:active:hover {
+    outline-color: initial;
+}
+.ql-snow.ql-toolbar button:hover,
+.ql-snow .ql-toolbar button:hover,
+.ql-snow.ql-toolbar button:focus,
+.ql-snow .ql-toolbar button:focus,
+.ql-snow.ql-toolbar button.ql-active,
+.ql-snow .ql-toolbar button.ql-active,
+.ql-snow.ql-toolbar .ql-picker-label:hover,
+.ql-snow .ql-toolbar .ql-picker-label:hover,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active,
+.ql-snow.ql-toolbar .ql-picker-item:hover,
+.ql-snow .ql-toolbar .ql-picker-item:hover,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+    color: rgb(84, 175, 249);
+}
+.ql-snow.ql-toolbar button:hover .ql-fill,
+.ql-snow .ql-toolbar button:hover .ql-fill,
+.ql-snow.ql-toolbar button:focus .ql-fill,
+.ql-snow .ql-toolbar button:focus .ql-fill,
+.ql-snow.ql-toolbar button.ql-active .ql-fill,
+.ql-snow .ql-toolbar button.ql-active .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+.ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+    fill: rgb(84, 175, 249);
+}
+.ql-snow.ql-toolbar button:hover .ql-stroke,
+.ql-snow .ql-toolbar button:hover .ql-stroke,
+.ql-snow.ql-toolbar button:focus .ql-stroke,
+.ql-snow .ql-toolbar button:focus .ql-stroke,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+.ql-snow.ql-toolbar button:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar button:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar button:focus .ql-stroke-miter,
+.ql-snow .ql-toolbar button:focus .ql-stroke-miter,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke-miter,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+    stroke: rgb(84, 175, 249);
+}
+@media (pointer: coarse) {
+    .ql-snow.ql-toolbar button:hover:not(.ql-active),
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) {
+        color: rgb(186, 180, 173);
+    }
+    .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-fill,
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-fill,
+    .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill,
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill {
+        fill: rgb(186, 180, 173);
+    }
+    .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke,
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke,
+    .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter,
+    .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter {
+        stroke: rgb(186, 180, 173);
+    }
+}
+.ql-snow .ql-tooltip a {
+    text-decoration-color: initial;
+}
+.ql-snow .ql-stroke {
+    fill: none;
+    stroke: rgb(186, 180, 173);
+}
+.ql-snow .ql-stroke-miter {
+    fill: none;
+    stroke: rgb(186, 180, 173);
+}
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+    fill: rgb(186, 180, 173);
+}
+.ql-snow .ql-empty {
+    fill: none;
+}
+.ql-snow .ql-editor a {
+    text-decoration-color: initial;
+}
+.ql-snow .ql-editor blockquote {
+    border-left-color: rgb(65, 71, 73);
+}
+.ql-snow .ql-editor code,
+.ql-snow .ql-editor pre {
+    background-color: rgb(37, 40, 42);
+}
+.ql-snow .ql-editor pre.ql-syntax {
+    background-color: rgb(30, 32, 33);
+    color: rgb(227, 227, 209);
+}
+.ql-snow .ql-picker {
+    color: rgb(186, 180, 173);
+}
+.ql-snow .ql-picker-options {
+    background-color: rgb(29, 31, 32);
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    color: rgb(196, 192, 185);
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-fill {
+    fill: rgb(196, 192, 185);
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
+    stroke: rgb(196, 192, 185);
+}
+.ql-snow .ql-color-picker .ql-picker-item {
+    border-color: transparent;
+}
+.ql-snow .ql-color-picker.ql-background .ql-picker-item {
+    background-color: rgb(29, 31, 32);
+}
+.ql-snow .ql-color-picker.ql-color .ql-picker-item {
+    background-color: rgb(6, 6, 6);
+}
+.ql-toolbar.ql-snow {
+    border-color: rgb(65, 71, 73);
+}
+.ql-toolbar.ql-snow .ql-picker-label {
+    border-color: transparent;
+}
+.ql-toolbar.ql-snow .ql-picker-options {
+    border-color: transparent;
+    box-shadow: rgba(6, 6, 6, 0.2) 0px 2px 8px;
+}
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    border-color: rgb(65, 71, 73);
+}
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    border-color: rgb(65, 71, 73);
+}
+.ql-toolbar.ql-snow .ql-color-picker .ql-picker-item.ql-selected,
+.ql-toolbar.ql-snow .ql-color-picker .ql-picker-item:hover {
+    border-color: rgb(139, 130, 116);
+}
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-top-color: initial;
+}
+.ql-snow .ql-tooltip {
+    background-color: rgb(29, 31, 32);
+    border-color: rgb(65, 71, 73);
+    box-shadow: rgb(47, 51, 53) 0px 0px 5px;
+    color: rgb(186, 180, 173); 
+}
+.ql-snow .ql-tooltip input[type="text"] {
+    border-color: rgb(65, 71, 73);
+}
+.ql-snow .ql-tooltip a.ql-action::after {
+    border-right-color: rgb(65, 71, 73);
+}
+.ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+    border-right-color: initial;
+}
+.ql-snow a {
+    color: rgb(84, 175, 249);
+}
+.ql-container.ql-snow {
+    border-color: rgb(65, 71, 73);
+}
+
+.app .container .link {
+    text-decoration-color: initial;
+    color: inherit;
+}
+.app .container .auth {
+    background-image: url("https://images.unsplash.com/photo-1611083616600-d3fdc4198aa6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80");
+}
+.app .container .auth h1 {
+    color: rgb(115, 249, 249);
+}
+.app .container .auth form {
+    background-color: rgb(29, 31, 32);
+}
+.app .container .auth form input {
+    border-top-color: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    border-bottom-color: rgb(86, 93, 96);
+}
+.app .container .auth form button {
+    border-color: initial;
+    background-color: rgb(6, 103, 103);
+    color: rgb(227, 225, 222);
+}
+.app .container .auth form p {
+    color: rgb(249, 31, 31);
+}
+.app .container .auth form span {
+    color: rgba(227, 225, 222, 0.5);
+}
+.app .container .navbar .container .logo .link {
+    color: rgb(115, 249, 249);
+}
+.app .container .navbar .container .links span:hover {
+    color: rgb(115, 249, 249);
+}
+.app .container .navbar .container .links .write {
+    background-color: rgb(32, 82, 82);
+    border-color: rgb(52, 56, 58);
+}
+.app .container .navbar .container .links .write:hover {
+    color: rgb(115, 249, 249);
+    background-color: rgb(29, 31, 32);
+    border-color: rgb(6, 213, 213);
+}
+.app .container footer {
+    background-color: rgb(32, 82, 82);
+    color: rgb(115, 249, 249);
+}
+.app .container .home .posts .post .img img {
+    border-color: rgb(6, 216, 216);
+    box-shadow: rgb(6, 103, 103) 4px 4px 4px;
+}
+.app .container .home .posts h1:hover {
+    color: rgb(115, 249, 249);
+}
+.app .container .home .posts button {
+    background-color: rgb(29, 31, 32);
+    border-color: rgb(38, 99, 99);
+    color: rgb(115, 249, 249);
+}
+.app .container .home .posts button:hover {
+    border-color: rgb(52, 56, 58);
+    background-color: rgb(32, 82, 82);
+}
+.app .container .home .dropdown a {
+    text-decoration-color: initial;
+    color: rgb(227, 225, 222);
+}
+.app .container .home .dropdown a:hover {
+    color: rgb(207, 203, 197);
+}
+.app .container .home .dropdown .dd-button {
+    border-color: rgb(86, 93, 96);
+    background-color: rgb(29, 31, 32);
+}
+.app .container .home .dropdown .dd-button::after {
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: rgb(139, 130, 116);
+}
+.app .container .home .dropdown .dd-button:hover {
+    background-color: rgb(39, 41, 42);
+}
+.app .container .home .dropdown .dd-menu {
+    border-color: rgb(65, 71, 73);
+    box-shadow: rgba(6, 6, 6, 0.1) 0px 0px 6px 0px;
+    background-color: rgb(29, 31, 32);
+}
+.app .container .home .dropdown .dd-menu .link h6:hover {
+    color: rgb(115, 249, 249);
+}
+.app .container .home .dropdown .dd-menu li:hover {
+    background-color: rgb(34, 37, 38);
+}
+.app .container .home #random {
+    border-color: rgb(86, 93, 96);
+    background-color: rgb(29, 31, 32);
+    color: rgb(227, 225, 222);
+    text-decoration-color: initial;
+}
+.app .container .home #random:hover {
+    color: rgb(115, 249, 249);
+}
+.app .container .single .content h1 {
+    color: rgb(196, 192, 185);
+}
+.app .container .single .content p pre {
+    background-color: rgb(42, 46, 47);
+    border-color: rgba(6, 213, 213, 0.1);
+}
+.app .container .single .end {
+    color: rgb(175, 170, 160);
+}
+.app .container .single h2 {
+    color: rgb(175, 170, 160);
+}
+.app .container .single .menu h1 {
+    color: rgb(175, 170, 160);
+}
+.app .container .single .menu .post h3 {
+    color: rgb(175, 170, 160);
+}
+.app .container .single .menu .post button {
+    background-color: rgb(29, 31, 32);
+    border-color: rgb(38, 99, 99);
+    color: rgb(115, 249, 249);
+}
+.app .container .single .menu .post button:hover {
+    border-color: rgb(52, 56, 58);
+    background-color: rgb(32, 82, 82);
+}
+.app .container .add .content input {
+    border-color: rgb(63, 68, 71);
+}
+.app .container .add .menu .item {
+    border-color: rgb(63, 68, 71);
+    color: rgb(175, 170, 160);
+}
+.app .container .add .menu .item .buttons :nth-child(2n) {
+    color: rgb(115, 249, 249);
+    background-color: rgb(29, 31, 32);
+    border-color: rgb(6, 213, 213);
+}
+.app .container .add .menu .item .buttons :nth-child(2n+1) {
+    color: rgb(227, 225, 222);
+    background-color: rgb(6, 103, 103);
+    border-color: rgb(6, 213, 213);
+}
+.app .container .add .menu .item .cat {
+    color: rgb(115, 249, 249);
+}

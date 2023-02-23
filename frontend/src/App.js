@@ -1,5 +1,5 @@
-import "./App.css";
 import "./style.scss";
+import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,8 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-
-import { enable as enableDarkMode } from "darkreader";
 
 const Layout = () => {
     return (
@@ -54,15 +52,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-    enableDarkMode({
-        brightness: 100,
-        contrast: 95,
-        sepia: 0,
-    });
-
     return (
         <div className="app">
-            <ToastContainer />
+            <ToastContainer theme="dark" />
             <div className="container">
                 <RouterProvider router={router} />
             </div>

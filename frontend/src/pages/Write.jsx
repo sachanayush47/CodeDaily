@@ -58,6 +58,7 @@ function Write() {
         e.preventDefault();
         document.getElementById("submit").disabled = true;
         document.getElementById("submit").style.backgroundColor = "#777";
+        document.getElementById("submit").style.borderColor = "#777";
 
         const formData = new FormData();
         formData.append("image", image);
@@ -83,12 +84,13 @@ function Write() {
                 });
             }
 
-            updateToast(id, res.data.message, "success");
             navigate(`/post/${res.data.insertId}`);
+            updateToast(id, res.data.message, "success");
         } catch (error) {
             updateToast(id, error.response.data.message, "error");
             document.getElementById("submit").disabled = false;
             document.getElementById("submit").style.backgroundColor = "teal";
+            document.getElementById("submit").style.borderColor = "teal";
         }
     };
 

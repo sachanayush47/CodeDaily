@@ -9,7 +9,6 @@ export const notifyError = (message) =>
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
     });
 
 export const notifySuccess = (message) =>
@@ -21,7 +20,6 @@ export const notifySuccess = (message) =>
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
     });
 
 export const updateToast = (id, message, type) => {
@@ -32,7 +30,9 @@ export const updateToast = (id, message, type) => {
         isLoading: false,
         autoClose: 5000,
         hideProgressBar: false,
+        pauseOnHover: true,
         closeOnClick: true,
-        theme: "dark",
+        draggable: true,
+        progress: undefined,
     });
 };

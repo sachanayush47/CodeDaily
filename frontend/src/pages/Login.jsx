@@ -21,7 +21,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const res = await login(inputs);
+            await login(inputs);
             notifySuccess("Login successful");
             navigate("/");
         } catch (error) {

@@ -60,7 +60,7 @@ $LightGreen: #b9e7e7;
                 button {
                     padding: 10px;
                     border: none;
-                    border-radius: 5px;
+                    border-radius: 4px;
                     background-color: teal;
                     cursor: pointer;
                     color: white;
@@ -181,7 +181,7 @@ $LightGreen: #b9e7e7;
                             object-fit: cover;
                             border: 1px solid #007070;
                             box-shadow: 4px 4px 4px teal;
-                            border-radius: 5px;
+                            border-radius: 3px;
                         }
                     }
                 }
@@ -261,7 +261,7 @@ $LightGreen: #b9e7e7;
                 .dd-button {
                     display: inline-block;
                     border: 1px solid gray;
-                    border-radius: 4px;
+                    border-radius: 3px;
                     padding: 10px 30px 10px 20px;
                     background-color: #ffffff;
                     cursor: pointer;
@@ -293,7 +293,7 @@ $LightGreen: #b9e7e7;
                     position: absolute;
                     top: 100%;
                     border: 1px solid #ccc;
-                    border-radius: 4px;
+                    border-radius: 3px;
                     padding: 0;
                     margin: 2px 0 0 0;
                     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
@@ -335,7 +335,7 @@ $LightGreen: #b9e7e7;
                 margin-left: 5px;
                 display: inline-block;
                 border: 1px solid gray;
-                border-radius: 4px;
+                border-radius: 3px;
                 padding: 10px 20px 10px 20px;
                 background-color: #ffffff;
                 cursor: pointer;
@@ -363,7 +363,6 @@ $LightGreen: #b9e7e7;
                     width: 100%;
                     max-height: 400px;
                     object-fit: contain;
-                    border-radius: 5px;
                 }
 
                 .user {
@@ -406,7 +405,7 @@ $LightGreen: #b9e7e7;
 
                     pre {
                         overflow-x: auto;
-                        background-color: #333;
+                        background-color: whitesmoke;
                         padding: 15px;
                         border: 1px solid rgb(0, 128, 128, 0.1);
                         border-radius: 2px;
