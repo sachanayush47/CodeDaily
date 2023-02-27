@@ -104,10 +104,18 @@ export const deletePost = asyncHandler(async (req, res) => {
 // @route   PUT /api/posts/:id
 // @access  Private
 export const updatePost = asyncHandler(async (req, res) => {
+    const postId = req.params.id;
+
+    const fetchPost = "SELECT uid, img FROM posts WHERE id = ?";
+    const [data] = await db.execute(fetchPost, [postId]);
+
+    if (data[0].uid != req.user.id) {
+        res.status(402);
+        throw new Error("You are not authorized to perform this action.");
+    }
+
     const localFilePath = req?.file?.path;
     const { title, desc, category } = req.body;
-
-    const postId = req.params.id;
 
     let image = req.body.image;
     if (localFilePath) {
@@ -117,10 +125,7 @@ export const updatePost = asyncHandler(async (req, res) => {
         }
 
         // First, delete the current image from the cloudinary.
-        const fetchImageUrlQuery = "SELECT img FROM posts WHERE id = ?";
-        const [data] = await db.execute(fetchImageUrlQuery, [postId]);
         await deleteFromCloudinary(data[0].img);
-
         image = (await uploadToCloudinary(localFilePath)).url;
     }
 
