@@ -45,8 +45,6 @@ const textBoxPlaceholder =
 function Write() {
     const state = useLocation().state;
 
-    console.log(localStorage.getItem("ssd"));
-
     const [desc, setDesc] = useState(state?.desc || localStorage.getItem("desc") || "");
     const [title, setTitle] = useState(state?.title || localStorage.getItem("title") || "");
     const [image, setImage] = useState(state?.img || null);

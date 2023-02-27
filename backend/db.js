@@ -3,9 +3,12 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const db = await mysql.createConnection({
-    host: "localhost",
+export const db = mysql.createPool({
+    host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: "codedaily",
+    port: process.env.MYSQL_PORT,
+    waitForConnections: true,
+    connectionLimit: 100,
 });

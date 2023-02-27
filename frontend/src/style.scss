@@ -177,8 +177,8 @@ $LightGreen: #b9e7e7;
 
                         img {
                             width: 100%;
-                            height: 200px;
-                            object-fit: cover;
+                            max-height: 500px;
+                            object-fit: contain;
                             border: 1px solid #007070;
                             box-shadow: 4px 4px 4px teal;
                             border-radius: 3px;
@@ -361,7 +361,7 @@ $LightGreen: #b9e7e7;
 
                 img {
                     width: 100%;
-                    max-height: 400px;
+                    max-height: 500px;
                     object-fit: contain;
                 }
 
@@ -402,6 +402,7 @@ $LightGreen: #b9e7e7;
                     text-align: justify;
                     line-height: 1.58;
                     font-size: 18px;
+                    word-wrap: break-word;
 
                     pre {
                         overflow-x: auto;
@@ -446,7 +447,8 @@ $LightGreen: #b9e7e7;
 
                     img {
                         width: 100%;
-                        object-fit: contain;
+                        height: 150px;
+                        object-fit: cover;
                         border-radius: 5px;
                     }
 
