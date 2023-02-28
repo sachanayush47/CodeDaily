@@ -6,6 +6,7 @@ import {
     getPosts,
     updatePost,
     getRandomPostId,
+    getPageCount,
 } from "../controllers/postController.js";
 
 import { verifyToken } from "../middleware/authHandler.js";
@@ -14,6 +15,7 @@ import { upload as multerUpload } from "../fileHandling.js";
 const router = express.Router();
 
 router.get("/", getPosts);
+router.get("/totalPage", getPageCount);
 router.get("/random", getRandomPostId);
 router.get("/:id", getPost);
 router.post("/", [multerUpload.single("image"), verifyToken], addPost);

@@ -6,6 +6,7 @@ import { notifyError } from "../utils/toastify";
 
 import Fade from "react-reveal/Fade";
 import Random from "../components/Random";
+import Pagination from "./Pagination";
 
 const parseHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -13,14 +14,13 @@ const parseHtml = (html) => {
 };
 
 function Home() {
+    const location = useLocation().search;
+
     const [posts, setPosts] = useState([]);
-
-    const category = useLocation().search;
-
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await axios.get(`/posts${category}`);
+                const res = await axios.get(`/posts${location}`);
                 setPosts(res.data);
             } catch (error) {
                 notifyError("Something went wrong");
@@ -28,7 +28,7 @@ function Home() {
         };
 
         fetchPosts();
-    }, [category]);
+    }, [location]);
 
     return (
         <div className="home">
@@ -57,6 +57,7 @@ function Home() {
                     ))}
                 </div>
             </Fade>
+            <Pagination />
         </div>
     );
 }

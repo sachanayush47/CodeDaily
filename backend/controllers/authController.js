@@ -62,7 +62,7 @@ export const login = asyncHandler(async (req, res) => {
     const token = jwt.sign({ id: data[0].id }, process.env.JWT_KEY, { expiresIn: "180d" });
 
     res.cookie("access_token", token, {
-        maxAge: 180 * 24 * 60 * 60 * 1000,
+        maxAge: 90 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         sameSite: "none",
         secure: true,

@@ -7,16 +7,24 @@ import { uploadToCloudinary, deleteFromCloudinary } from "../fileHandling.js";
 // @access  Public
 export const getPosts = asyncHandler(async (req, res) => {
     let category = req.query.cat;
-    const q = category
-        ? "SELECT * FROM posts WHERE category = ? ORDER BY date DESC"
-        : "SELECT * FROM posts ORDER BY date DESC";
+    let page = req.query.page ? req.query.page - 1 : 0;
 
-    if (category === undefined) category = null;
-    const [data] = await db.execute(q, [category]);
+    const offset = (2 * page).toString();
+
+    let posts;
+    if (category) {
+        const q = "SELECT * FROM posts WHERE category = ? ORDER BY date DESC LIMIT ?, 2";
+        const [data] = await db.execute(q, [category, offset]);
+        posts = data;
+    } else {
+        const q = "SELECT * FROM posts ORDER BY date DESC LIMIT ?, 2";
+        const [data] = await db.execute(q, [offset]);
+        posts = data;
+    }
 
     // Limiting character count of description
-    data.forEach((post) => (post.desc = post.desc.substring(0, 200)));
-    return res.status(200).json(data);
+    posts.forEach((post) => (post.desc = post.desc.substring(0, 200)));
+    return res.status(200).json(posts);
 });
 
 // @desc    Fetch a blog post
@@ -143,4 +151,19 @@ export const updatePost = asyncHandler(async (req, res) => {
         message: "The post has been successfully updated and published.",
         insertId: postId,
     });
+});
+
+export const getPageCount = asyncHandler(async (req, res) => {
+    let category = req.query.cat;
+
+    let count;
+    if (category) {
+        const q = "SELECT COUNT(*) FROM posts WHERE category = ?";
+        const [data] = await db.execute(q, [category]);
+        res.json(Math.ceil(data[0][Object.keys(data[0])[0]] / 2));
+    } else {
+        const q = "SELECT COUNT(*) FROM posts";
+        const [data] = await db.execute(q);
+        res.json(Math.ceil(data[0][Object.keys(data[0])[0]] / 2));
+    }
 });
