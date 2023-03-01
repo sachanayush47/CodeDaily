@@ -22,6 +22,7 @@ app.use(
             "http://localhost:3002",
             "https://code-daily.vercel.app",
             "https://code-daily-sachanayush47.vercel.app",
+            "http://192.168.43.197:3000",
         ],
         credentials: true,
         allowedHeaders: ["Content-Type", "Authorization"],

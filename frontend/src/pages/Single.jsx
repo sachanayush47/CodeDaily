@@ -13,6 +13,9 @@ import Menu from "../components/Menu";
 import { AuthContext } from "../context/authContextProvider";
 import { notifyError, updateToast } from "../utils/toastify";
 
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 function Single() {
     useEffect(() => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -20,6 +23,7 @@ function Single() {
 
     const { currentUser } = useContext(AuthContext);
 
+    const [loading, setLoading] = useState(true);
     const [post, setPost] = useState({});
 
     const { id: postId } = useParams();
@@ -27,8 +31,10 @@ function Single() {
     useEffect(() => {
         const fetchPost = async () => {
             try {
+                setLoading(true);
                 const res = await axios.get(`/posts/${postId}`);
                 setPost(res.data);
+                setLoading(false);
             } catch (error) {
                 notifyError(error.response.data.message);
             }
@@ -55,34 +61,45 @@ function Single() {
         <div className="single">
             <div className="content">
                 <Fade left>
-                    <img src={post.img} alt="" />
+                    {loading ? <Skeleton height={350} /> : <img src={post.img} alt="" />}
                 </Fade>
-                <Fade left>
-                    <div className="user">
-                        {post.userImg && <img src={post.userImg} alt="" />}
-                        <div className="info">
-                            <span>{post.username}</span>
-                            <p>Posted {moment(post.date).fromNow()}</p>
-                        </div>
-
-                        {currentUser?.username === post.username && (
-                            <div className="edit">
-                                <Link to={`/write?edit=${postId}`} state={post}>
-                                    <img src={Edit} alt="" />
-                                </Link>
-                                <img onClick={handleDelete} src={Delete} alt="" />
+                {!loading && (
+                    <Fade left>
+                        <div className="user">
+                            {post.userImg && <img src={post.userImg} alt="" />}
+                            <div className="info">
+                                <span>{post.username}</span>
+                                <p>Posted {moment(post.date).fromNow()}</p>
                             </div>
-                        )}
-                    </div>
-                </Fade>
+
+                            {currentUser?.username === post.username && (
+                                <div className="edit">
+                                    <Link to={`/write?edit=${postId}`} state={post}>
+                                        <img src={Edit} alt="" />
+                                    </Link>
+                                    <img onClick={handleDelete} src={Delete} alt="" />
+                                </div>
+                            )}
+                        </div>
+                    </Fade>
+                )}
+
                 <Fade bottom>
-                    <h1>{post.title}</h1>
+                    <h1>{loading ? <Skeleton height={50} width="75%" /> : post.title}</h1>
                 </Fade>
-                <p
-                    dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(post.desc),
-                    }}
-                ></p>
+                {loading ? (
+                    <>
+                        <Skeleton count={2} />
+                        <Skeleton count={4} />
+                        <Skeleton count={5} />
+                    </>
+                ) : (
+                    <p
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(post.desc),
+                        }}
+                    ></p>
+                )}
             </div>
             <br />
             <p className="end">...</p>

@@ -14,8 +14,8 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
-// axios.defaults.baseURL = "https://codedaily-production.up.railway.app/api/";
-axios.defaults.baseURL = "http://localhost:6969/api/";
+axios.defaults.baseURL = "https://codedaily-production.up.railway.app/api/";
+// axios.defaults.baseURL = "http://localhost:6969/api/";
 axios.defaults.withCredentials = true;
 
 const Layout = () => {
