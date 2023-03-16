@@ -23,7 +23,7 @@ function Login() {
         try {
             await login(inputs);
             notifySuccess("Login successful");
-            navigate("/");
+            navigate(-1);
         } catch (error) {
             console.log(error);
             notifyError(error.response.data.message);

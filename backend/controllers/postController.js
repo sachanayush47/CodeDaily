@@ -9,15 +9,15 @@ export const getPosts = asyncHandler(async (req, res) => {
     let category = req.query.cat;
     let page = req.query.page ? req.query.page - 1 : 0;
 
-    const offset = (2 * page).toString();
+    const offset = (4 * page).toString();
 
     let posts;
     if (category) {
-        const q = "SELECT * FROM posts WHERE category = ? ORDER BY date DESC LIMIT ?, 2";
+        const q = "SELECT * FROM posts WHERE category = ? ORDER BY date DESC LIMIT ?, 4";
         const [data] = await db.execute(q, [category, offset]);
         posts = data;
     } else {
-        const q = "SELECT * FROM posts ORDER BY date DESC LIMIT ?, 2";
+        const q = "SELECT * FROM posts ORDER BY date DESC LIMIT ?, 4";
         const [data] = await db.execute(q, [offset]);
         posts = data;
     }
@@ -32,7 +32,7 @@ export const getPosts = asyncHandler(async (req, res) => {
 // @access  Public
 export const getPost = asyncHandler(async (req, res) => {
     const q =
-        "SELECT posts.id, `username`, `title`, `desc`, posts.img, users.img AS userImg, `category`, `date` FROM users JOIN posts on users.id = posts.uid WHERE posts.id = ?";
+        "SELECT posts.id, `username`, `title`, `desc`, posts.img, users.img AS userImg, `category`, `date`, `uid` FROM users JOIN posts on users.id = posts.uid WHERE posts.id = ?";
 
     const [data] = await db.execute(q, [req.params.id]);
 
@@ -160,10 +160,10 @@ export const getPageCount = asyncHandler(async (req, res) => {
     if (category) {
         const q = "SELECT COUNT(*) FROM posts WHERE category = ?";
         const [data] = await db.execute(q, [category]);
-        res.json(Math.ceil(data[0][Object.keys(data[0])[0]] / 2));
+        res.json(Math.ceil(data[0][Object.keys(data[0])[0]] / 4));
     } else {
         const q = "SELECT COUNT(*) FROM posts";
         const [data] = await db.execute(q);
-        res.json(Math.ceil(data[0][Object.keys(data[0])[0]] / 2));
+        res.json(Math.ceil(data[0][Object.keys(data[0])[0]] / 4));
     }
 });

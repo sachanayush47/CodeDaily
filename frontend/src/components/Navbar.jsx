@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContextProvider";
 
 function Navbar() {
-    const { currentUser, logout } = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext);
 
     return (
         <div className="navbar">
@@ -17,7 +17,9 @@ function Navbar() {
                 <div className="links">
                     <span>
                         {currentUser ? (
-                            currentUser.username
+                            <Link className="link" to={`/user/${currentUser.id}`}>
+                                {currentUser.username}
+                            </Link>
                         ) : (
                             <Link className="link" to="/login">
                                 Login
@@ -25,9 +27,7 @@ function Navbar() {
                         )}
                     </span>
 
-                    {currentUser ? (
-                        <span onClick={logout}>Logout</span>
-                    ) : (
+                    {!currentUser && (
                         <span>
                             <Link className="link" to="/register">
                                 Register

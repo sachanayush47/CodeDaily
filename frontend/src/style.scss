@@ -1,5 +1,54 @@
 $LightGreen: #b9e7e7;
 
+.ReactModal__Content {
+    padding: 0px;
+}
+
+#change-password {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-size: cover;
+    background-image: url("https://images.unsplash.com/photo-1611083616600-d3fdc4198aa6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80");
+    color: teal;
+
+    .change-password-heading {
+        margin-bottom: 25px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        padding: 30px;
+        background-color: white;
+        width: 180px;
+        gap: 20px;
+        border-radius: 5px;
+        input {
+            padding: 10px;
+            border: none;
+            border-bottom: 1px solid gray;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: teal;
+            cursor: pointer;
+            color: white;
+        }
+
+        span {
+            font-size: 14px;
+            color: rgb(0, 0, 0, 0.5);
+            text-align: center;
+        }
+    }
+}
+
 .app {
     display: flex;
     justify-content: center;
@@ -66,12 +115,6 @@ $LightGreen: #b9e7e7;
                     color: white;
                 }
 
-                p {
-                    color: red;
-                    font-size: 14px;
-                    text-align: center;
-                }
-
                 span {
                     font-size: 14px;
                     color: rgb(0, 0, 0, 0.5);
@@ -112,7 +155,8 @@ $LightGreen: #b9e7e7;
                     }
 
                     .write {
-                        background-color: $LightGreen;
+                        background-color: teal;
+                        color: white;
                         width: 60px;
                         height: 30px;
                         border-radius: 5px;
@@ -135,12 +179,12 @@ $LightGreen: #b9e7e7;
         footer {
             margin-top: 50px;
             padding: 20px;
-            background-color: $LightGreen;
+            background-color: teal;
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 13px;
-            color: teal;
+            color: white;
 
             .logo {
                 .link {
@@ -380,13 +424,14 @@ $LightGreen: #b9e7e7;
         .single {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 20px;
             margin-top: 50px;
 
             .content {
                 display: flex;
                 flex-direction: column;
-                gap: 30px;
+                gap: 20px;
+                // margin-top: -100px;
 
                 img {
                     width: 100%;
@@ -397,8 +442,8 @@ $LightGreen: #b9e7e7;
                 .user {
                     display: flex;
                     align-items: center;
-                    gap: 10px;
                     font-size: 14px;
+                    margin-bottom: 0px;
 
                     img {
                         width: 50px;
@@ -505,7 +550,6 @@ $LightGreen: #b9e7e7;
         }
 
         // WRITE
-
         .ql-editor {
             height: 300px;
             width: 100%;
@@ -580,6 +624,60 @@ $LightGreen: #b9e7e7;
                         align-items: center;
                         gap: 2px;
                         color: teal;
+                    }
+                }
+            }
+        }
+
+        .user {
+            margin-top: 25px;
+            gap: 5px;
+            margin-bottom: 50px;
+
+            p {
+                font-size: 18px;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            button {
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+                background-color: teal;
+                cursor: pointer;
+                color: white;
+                width: 150px;
+                position: relative;
+                margin: 2px;
+            }
+
+            .table {
+                margin-top: 25px;
+                overflow-x: auto;
+
+                table {
+                    thead {
+                        background-color: teal;
+                        color: white;
+                        border-radius: 15px;
+
+                        th {
+                            min-width: 100px;
+                            padding: 10px;
+                        }
+                    }
+
+                    tr {
+                        td {
+                            padding: 10px;
+                        }
+
+                        &:nth-child(2n + 1) {
+                            background-color: $LightGreen;
+                        }
                     }
                 }
             }

@@ -68,7 +68,11 @@ function Single() {
                         <div className="user">
                             {post.userImg && <img src={post.userImg} alt="" />}
                             <div className="info">
-                                <span>{post.username}</span>
+                                <span>
+                                    <Link className="link" to={`/user/${post.uid}`}>
+                                        {post.username}
+                                    </Link>
+                                </span>
                                 <p>Posted {moment(post.date).fromNow()}</p>
                             </div>
 

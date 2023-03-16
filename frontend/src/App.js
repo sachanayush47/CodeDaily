@@ -13,9 +13,11 @@ import axios from "axios";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import User from "./pages/User";
+import ChangePassword from "./pages/ChangePassword";
 
-axios.defaults.baseURL = "https://codedaily-production.up.railway.app/api/";
-// axios.defaults.baseURL = "http://localhost:6969/api/";
+// axios.defaults.baseURL = "https://codedaily-production.up.railway.app/api/";
+axios.defaults.baseURL = "http://localhost:6969/api/";
 axios.defaults.withCredentials = true;
 
 const Layout = () => {
@@ -49,6 +51,10 @@ const router = createBrowserRouter([
                 path: "/write",
                 element: <Write />,
             },
+            {
+                path: "/user/:id",
+                element: <User />,
+            },
         ],
     },
     {
@@ -58,6 +64,10 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login />,
+    },
+    {
+        path: "/user/changepassword",
+        element: <ChangePassword />,
     },
 ]);
 
