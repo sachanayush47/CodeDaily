@@ -16,8 +16,8 @@ import Navbar from "./components/Navbar";
 import User from "./pages/User";
 import ChangePassword from "./pages/ChangePassword";
 
-// axios.defaults.baseURL = "https://codedaily-production.up.railway.app/api/";
-axios.defaults.baseURL = "http://localhost:6969/api/";
+axios.defaults.baseURL = "https://codedaily-production.up.railway.app/api/";
+// axios.defaults.baseURL = "http://localhost:6969/api/";
 axios.defaults.withCredentials = true;
 
 const Layout = () => {
