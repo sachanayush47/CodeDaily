@@ -9,8 +9,6 @@ const User = () => {
     const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
     const { currentUser, logout } = useContext(AuthContext);
     const { id: userId } = useParams();
 
