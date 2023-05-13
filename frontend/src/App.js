@@ -17,9 +17,8 @@ import User from "./pages/User";
 import ChangePassword from "./pages/ChangePassword";
 
 // axios.defaults.baseURL = "https://codedaily-production.up.railway.app/api/";
-axios.defaults.baseURL = process.env.REACT_APP_URL;
+axios.defaults.baseURL = "https://codedaily-render.onrender.com/api/";
 // axios.defaults.baseURL = "http://localhost:6969/api/";
-console.log(process.env.REACT_APP_URL);
 axios.defaults.withCredentials = true;
 
 const Layout = () => {
